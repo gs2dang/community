@@ -6,11 +6,12 @@ class Post(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name='write_posts',
+        related_query_name='write_post',
         verbose_name='작성자'
     )
     title = models.CharField('글 제목', max_length=20)
     content = models.TextField('글 내용', max_length=500)
-    photo = models.ImageField('사진', upload_to='post')
     view_count = models.PositiveIntegerField('조회수', default=0)
     like_user = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
@@ -30,6 +31,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         verbose_name='작성자'
     )
     content = models.TextField('댓글 내용', max_length=150)
