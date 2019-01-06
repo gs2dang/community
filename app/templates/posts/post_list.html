@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>조회수</th>
+            <th>추천수</th>
+        </tr>
+
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td><a href="{% url 'posts:post_detail' post.id %}">{{ post.title }}</a></td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.view_count }}</td>
+            <td>{{ post.like_count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <h5>{{ post.author }}</h5>
+    <h5>{{ post.created }}</h5>
+    <br>
+    {{ post.content|linebreaks }}
+
+    <br>
+    <a href="{% url 'posts:post_list' %}">목록</a>
+{% endblock %}

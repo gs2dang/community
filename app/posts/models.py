@@ -10,9 +10,10 @@ class Post(models.Model):
         related_query_name='write_post',
         verbose_name='작성자'
     )
-    title = models.CharField('글 제목', max_length=20)
-    content = models.TextField('글 내용', max_length=500)
+    title = models.CharField('글 제목', max_length=50)
+    content = models.TextField('글 내용')
     view_count = models.PositiveIntegerField('조회수', default=0)
+    like_count = models.PositiveIntegerField('추천수', default=0)
     like_user = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='PostLike'
@@ -34,7 +35,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         verbose_name='작성자'
     )
-    content = models.TextField('댓글 내용', max_length=150)
+    content = models.TextField('댓글 내용', max_length=200)
     created = models.DateTimeField('작성일', auto_now_add=True)
     modified = models.DateTimeField('수정일', auto_now=True)
 
