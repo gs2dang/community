@@ -6,5 +6,7 @@
     {{ post.content|linebreaks }}
 
     <br>
+
+    <a href="{% url 'posts:post_edit' post.id %}">수정</a>
     <a href="{% url 'posts:post_list' %}">목록</a>
 {% endblock %}
