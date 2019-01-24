@@ -12,8 +12,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bulletin_board_dev',
-        'USER': 'master',
-        'PASSWORD': 'master',
+        'USER': 'admin_dev',
+        'PASSWORD': 'admin_dev',
         'HOST': 'localhost',
         'PORT': '',
     }

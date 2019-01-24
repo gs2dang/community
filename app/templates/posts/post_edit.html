@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        제목 : {{ form.title }}
-        <br>
-        내용 : {{ form.content }}
-        <br>
-        <input type="submit" value="수정 완료">
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    제목 : {{ form.title }}
+    <br>
+    내용 : {{ form.content }}
+    <br>
+    <button class="btn btn-primary btn-lg">수정 완료</button>
+</form>
+{% endblock %}
