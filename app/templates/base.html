@@ -37,9 +37,13 @@
                 <li><a href="#">Contact {{ current_datetime }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">회원가입</a></li>
+                <li><a href="{% url 'members:signup' %}">회원가입</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="#">로그아웃</a></li>
+                {% else %}
                 <li><a href="#">로그인</a></li>
-                <li><a href="#">{{ user }}</a></li>
+                {% endif %}
+                <li><a href="#">{{ user.nickname }}</a></li>
             </ul>
         </div>
     </div>
