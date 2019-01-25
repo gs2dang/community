@@ -45,7 +45,7 @@
                         <tr>
                             <td>{{ post.id }}</td>
                             <td><a href="{% url 'posts:post_detail' post.pk%}">{{ post.title }}</a></td>
-                            <td><small>{{ post.author }}</small></td>
+                            <td><small>{{ post.author.nickname }}</small></td>
                             <td><small>{{ post.view_count }}</small></td>
                             <td><small>{{ post.like_count }}</small></td>
                         </tr>

@@ -25,8 +25,8 @@ def signup(request):
 def signin(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        username = request.POST['user_id']
-        password = request.POST['user_pw']
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
