@@ -39,9 +39,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{% url 'members:signup' %}">회원가입</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="#">로그아웃</a></li>
+                <form action="{% url 'members:logout_view' %}" method="POST">
+                    {% csrf_token %}
+                    <li><button type="submit">로그아웃</button></li>
+                </form>
                 {% else %}
-                <li><a href="#">로그인</a></li>
+                <li><a href="{% url 'members:signin' %}">로그인</a></li>
                 {% endif %}
                 <li><a href="#">{{ user.nickname }}</a></li>
             </ul>
