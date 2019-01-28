@@ -7,7 +7,7 @@ User = get_user_model()
 class SignupForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'password', 'full_name', 'nickname']
+        fields = ['username', 'password', 'last_name', 'first_name', 'nickname']
 
 
 class LoginForm(forms.ModelForm):

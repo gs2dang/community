@@ -12,15 +12,6 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="alert alert-info">
-                    <ul>
-                        <li>http://localhost:8000/blog/ 주소로 접속해보세요.</li>
-                        <li>템플릿 경로를 blog/templates/post_list.html 경로가 아닌
-                        blog/ templates/blog/post_list.html 경로를 쓰는 지에 대한 이유는,
-                        후에 Template Loader에서 설명합니다.</li>
-                    </ul>
-            </div>
-
             {% if user.is_authenticated %}
             <a href="{% url 'posts:post_create' %}" class="btn btn-primary pull-right">New Post</a>
             {% endif %}
@@ -54,5 +45,23 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 {% endblock %}

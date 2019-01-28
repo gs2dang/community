@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm
 from .models import Post
@@ -5,24 +6,36 @@ from .models import Post
 
 def post_list(request):
     posts = Post.objects.all()
+    # Show 15 posts per page
+    paginator = Paginator(posts, 15)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    # 검색폼에 무언가를 입력하면 search에 그 값이 들어가게 되지만
+    # 아무 값도 넣지 않으면 '' 즉 공백이 들어가게 됨
     search= request.GET.get('search', '')
     if search:
+        # icontains은 대소문자 구별하지 않음
         posts = posts.filter(title__icontains=search)
 
     context = {
         'posts': posts,
         'search': search,
-
-    }
+        }
     return render(request, 'posts/post_list.html', context)
 
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, id=pk)
+
+    # 이전에 위치한 주소를 가져오기
+    before_url = request.META.get('HTTP_REFERER')
+
     # 조회수 증가
     post.update_view_count
     context = {
         'post': post,
+        'before_url': before_url
     }
     return render(request, 'posts/post_detail.html', context)
 
