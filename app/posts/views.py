@@ -6,10 +6,24 @@ from .models import Post
 
 def post_list(request):
     posts = Post.objects.all()
+
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
+
+    # 페이지 범위
+    current_page = int(page)
+    if current_page < 3:
+        start_index = 0
+    else:
+        start_index = current_page - 3
+
+    if current_page == paginator.num_pages or current_page + 1 == paginator.num_pages:
+        end_index = paginator.num_pages
+    else:
+        end_index = current_page + 2
+    paginator_range = paginator.page_range[start_index:end_index]
 
     # 검색폼에 무언가를 입력하면 search에 그 값이 들어가게 되지만
     # 아무 값도 넣지 않으면 '' 즉 공백이 들어가게 됨
@@ -21,6 +35,7 @@ def post_list(request):
     context = {
         'posts': posts,
         'search': search,
+        'paginator_range': paginator_range,
         }
     return render(request, 'posts/post_list.html', context)
 
