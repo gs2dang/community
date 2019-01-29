@@ -9,20 +9,20 @@ def post_list(request):
 
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
-    page = request.GET.get('page')
+    page = request.GET.get('page', 1)
     posts = paginator.get_page(page)
 
     # 페이지 범위
-    current_page = int(page)
-    if current_page < 3:
+    current_page = int(page) if type(page) == str else page
+    if current_page < 6:
         start_index = 0
     else:
-        start_index = current_page - 3
+        start_index = current_page - 6
 
     if current_page == paginator.num_pages or current_page + 1 == paginator.num_pages:
         end_index = paginator.num_pages
     else:
-        end_index = current_page + 2
+        end_index = current_page + 5
     paginator_range = paginator.page_range[start_index:end_index]
 
     # 검색폼에 무언가를 입력하면 search에 그 값이 들어가게 되지만

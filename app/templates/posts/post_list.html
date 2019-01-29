@@ -2,13 +2,8 @@
 {% block content %}
 <div class="container">
     <div class="jumbotron">
-        <h1>Django Template <sup>by AskDjango</sup></h1>
-        <p>여러분의 파이썬/장고 페이스메이커가 되겠습니다.</p>
-        <p>
-            <a class="btn btn-lg btn-primary" href="http://facebook.com/groups/askdjango">
-                AskDjango 페이스북 그룹 &raquo;
-            </a>
-        </p>
+        <h1>나만의 이야기</h1>
+        <p>개인 공부용으로 만들었습니다.</p>
     </div>
     <div class="row">
         <div class="col-sm-12">
@@ -43,28 +38,26 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <nav aria-label="page-navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                    {% if posts.has_previous %}
-                     <a class="page-link" href="?page={{ posts.previous_page_number }}"
-                    tabindex="-1" aria-disabled="true">&laquo;</a>
-                    {% endif %}
-                    </li>
-                    {% for i in paginator_range %}
-                    {% if posts.number == i %}
-                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                    {% else %}
-                    <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                    <li class="page-item">
-                    {% if posts.has_next %}
-                     <a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a>
-                    {% endif %}
-                    </li>
-                </ul>
-            </nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                {% if posts.has_previous %}
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}"
+                tabindex="-1" aria-disabled="true">&laquo;</a>
+                {% endif %}
+                </li>
+                {% for i in paginator_range %}
+                {% if posts.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item">
+                {% if posts.has_next %}
+                    <a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a>
+                {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
 </div>
