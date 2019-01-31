@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>회원가입</h1>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary btn-lg">회원가입</button>
-</form>
+<div class="container">
+    <div class="col-sm-12 center-tag">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary btn-block">회원가입</button>
+    </form>
+    </div>
+</div>
 {% endblock %}
