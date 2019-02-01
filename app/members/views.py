@@ -25,11 +25,8 @@ def signup(request):
 def signin(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
+        if form.is_valid():
+            login(request, form.cleaned_data)
             return redirect('posts:post_list')
         else:
             return HttpResponse('아이디 또는 비밀번호가 틀렸습니다.')
