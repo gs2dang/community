@@ -13,6 +13,30 @@ class SignupForm(forms.Form):
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     nickname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("이미 사용 중인 아이디입니다.")
+        return username
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 != password2:
+            raise ValidationError("비밀번호가 다릅니다.")
+        return password2
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password2')
+        User.objects.create_user(username=username,
+                                 password=password,
+                                 first_name=self.cleaned_data.get('first_name'),
+                                 last_name=self.cleaned_data.get('last_name'),
+                                 nickname=self.cleaned_data.get('nickname'))
+        user = authenticate(username=username, password=password)
+        return user
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='ID', widget=forms.TextInput(attrs={'class': 'form-control'}))

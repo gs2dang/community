@@ -48,6 +48,7 @@ def post_detail(request, pk):
 
     # 조회수 증가
     post.update_view_count
+
     context = {
         'post': post,
         'before_url': before_url
