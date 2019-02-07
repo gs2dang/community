@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
-from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -16,24 +15,28 @@ class SignupForm(forms.Form):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
-            raise ValidationError("이미 사용 중인 아이디입니다.")
+            raise forms.ValidationError("이미 사용 중인 아이디입니다.")
         return username
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         if password1 != password2:
-            raise ValidationError("비밀번호가 다릅니다.")
+            raise forms.ValidationError("비밀번호가 다릅니다.")
         return password2
 
     def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password2')
-        User.objects.create_user(username=username,
-                                 password=password,
-                                 first_name=self.cleaned_data.get('first_name'),
-                                 last_name=self.cleaned_data.get('last_name'),
-                                 nickname=self.cleaned_data.get('nickname'))
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password2')
+        if self.errors:
+            pass
+        else:
+            User.objects.create_user(username=username,
+                                     password=password,
+                                     first_name=cleaned_data.get('first_name'),
+                                     last_name=cleaned_data.get('last_name'),
+                                     nickname=cleaned_data.get('nickname'))
         user = authenticate(username=username, password=password)
         return user
 
@@ -49,6 +52,6 @@ class LoginForm(forms.Form):
         user = authenticate(username=username, password=password)
 
         if user is None:
-            raise ValidationError("아이디 또는 비밀번호가 틀렸습니다.")
+            raise forms.ValidationError("아이디 또는 비밀번호가 틀렸습니다.")
 
         return user

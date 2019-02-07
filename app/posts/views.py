@@ -7,6 +7,12 @@ from .models import Post
 def post_list(request):
     posts = Post.objects.all()
 
+    # 검색폼에 무언가를 입력하면 search에 그 값이 들어가게 되지만
+    # 아무 값도 넣지 않으면 '' 즉 공백이 들어가게 됨
+    search = request.GET.get('search', '')
+    if search:
+        # icontains은 대소문자 구별하지 않음
+        posts = posts.filter(title__icontains=search)
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
     page = request.GET.get('page', 1)
@@ -25,18 +31,14 @@ def post_list(request):
         end_index = current_page + 5
     paginator_range = paginator.page_range[start_index:end_index]
 
-    # 검색폼에 무언가를 입력하면 search에 그 값이 들어가게 되지만
-    # 아무 값도 넣지 않으면 '' 즉 공백이 들어가게 됨
-    search= request.GET.get('search', '')
-    if search:
-        # icontains은 대소문자 구별하지 않음
-        posts = posts.filter(title__icontains=search)
+
+
 
     context = {
         'posts': posts,
         'search': search,
         'paginator_range': paginator_range,
-        }
+    }
     return render(request, 'posts/post_list.html', context)
 
 
@@ -79,7 +81,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('posts:post_list')
+            return redirect(f'/post/{ post.pk }')
     else:
         form = PostForm()
 

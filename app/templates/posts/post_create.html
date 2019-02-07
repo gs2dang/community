@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    제목 {{ form.title }}
-    내용 {{ form.content }}
-    <button class="btn btn-primary btn-lg">작성 완료</button>
-</form>
+<div class="container">
+    <div class="col-sm-12 center-tag">
+        <form action="{% url 'posts:post_create' %}" method="POST">
+            {% csrf_token %}
+            제목 {{ form.title }}
+            <br>
+            내용 {{ form.content }}
+            <button class="btn btn-primary btn-block">작성 완료</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

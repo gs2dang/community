@@ -11,6 +11,11 @@
         </div>
         {% endfor %}
         <button class="btn btn-primary btn-block">로그인</button>
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endfor %}
     </form>
     </div>
 </div>

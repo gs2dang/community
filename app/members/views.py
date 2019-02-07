@@ -1,5 +1,4 @@
-from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.http import HttpResponse
+from django.contrib.auth import get_user_model, login, logout
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm
 
@@ -11,7 +10,7 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             login(request, form.cleaned_data)
-        return redirect('posts:post_list')
+            return redirect('posts:post_list')
     else:
         form = SignupForm()
 
@@ -27,8 +26,8 @@ def signin(request):
         if form.is_valid():
             login(request, form.cleaned_data)
             return redirect('posts:post_list')
-        else:
-            return HttpResponse('아이디 또는 비밀번호가 틀렸습니다.')
+        # else:
+        #     return HttpResponse('아이디 또는 비밀번호가 틀렸습니다.')
     else:
         form = LoginForm()
 
