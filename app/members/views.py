@@ -26,8 +26,6 @@ def signin(request):
         if form.is_valid():
             login(request, form.cleaned_data)
             return redirect('posts:post_list')
-        # else:
-        #     return HttpResponse('아이디 또는 비밀번호가 틀렸습니다.')
     else:
         form = LoginForm()
 

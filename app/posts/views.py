@@ -47,6 +47,8 @@ def post_detail(request, pk):
 
     # 이전에 위치한 주소를 가져오기
     before_url = request.META.get('HTTP_REFERER')
+    if '/post/create/' in before_url:
+        before_url = False
 
     # 조회수 증가
     post.update_view_count
