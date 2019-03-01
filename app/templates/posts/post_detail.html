@@ -4,25 +4,33 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>{{ post.title }}</h1>
+            <br>
             {{ post.content|linebreaks }}
-            <hr>
-            <h4>Comments</h4>
-            {% for comment in post.comment_set.all %}
-            <li>
-                {{ comment.content }}
-                <small>by {{ comment.author }}</small>
-                <small>at {{ comment.modified }}</small>
-            </li>
-            {% endfor %}
-            <hr>
             {% if before_url %}
-            <a href="{{ before_url }}" class='btn btn-primary'>글 목록</a>
+            <a href="{{ before_url }}" class='btn btn-primary btn-sm'>글 목록</a>
             {% else %}
-            <a href="{% url 'posts:post_list' %}" class='btn btn-primary'>글 목록</a>
+            <a href="{% url 'posts:post_list' %}" class='btn btn-primary btn-sm'>글 목록</a>
             {% endif %}
             {% if user.is_authenticated %}
-            <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-primary'>수정</a>
+            <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-primary btn-sm'>수정</a>
             {% endif %}
+            <hr>
+            {% if user.is_authenticated %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                    {{ form.content }}
+                <input type="submit" class="btn btn-primary btn-sm" value="댓글">
+            </form>
+            <hr>
+            {% endif %}
+            <div class="comment">
+                {% for comment in post.comment_set.all %}
+                <h4>{{ comment.author.nickname }}<small> {{ comment.created }}</small></h4>
+                <br>
+                {{ comment.content }}
+                <hr>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

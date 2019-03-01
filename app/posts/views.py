@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post
 
 
@@ -31,9 +31,6 @@ def post_list(request):
         end_index = current_page + 5
     paginator_range = paginator.page_range[start_index:end_index]
 
-
-
-
     context = {
         'posts': posts,
         'search': search,
@@ -47,15 +44,30 @@ def post_detail(request, pk):
 
     # 이전에 위치한 주소를 가져오기
     before_url = request.META.get('HTTP_REFERER')
-    if '/post/create/' in before_url:
+
+    # 특정 게시글에 바로 접속했을 경우, 해당 게시글이 위치한 페이지 목록으로 갈 수 없기에
+    # 게시글 1페이지 이동하게 한다.
+    if '?page=' not in before_url:
         before_url = False
 
     # 조회수 증가
     post.update_view_count
 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            return redirect(post)
+    else:
+        form = CommentForm()
+
     context = {
         'post': post,
-        'before_url': before_url
+        'before_url': before_url,
+        'form': form,
     }
     return render(request, 'posts/post_detail.html', context)
 
@@ -83,7 +95,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect(f'/post/{ post.pk }')
+            return redirect(post)
     else:
         form = PostForm()
 
