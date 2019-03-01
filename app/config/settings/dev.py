@@ -1,21 +1,22 @@
 from .base import *
 
+SECRETS = json.load(open(os.path.join(SECRET_DIR, 'base.json')))
+
 DEBUG = True
 
+WSGI_APPLICATION = 'config.wsgi.dev.application'
 
-ALLOWED_HOSTS = [ 'localhost']
+ALLOWED_HOSTS = SECRETS['ALLOWED_HOSTS']
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = SECRETS['DATABASES']
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bulletin_board_dev',
-        'USER': 'admin_dev',
-        'PASSWORD': 'admin_dev',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

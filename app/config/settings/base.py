@@ -18,27 +18,24 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = os.path.dirname(BASE_DIR)
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# STATIC
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
-STATIC_URL = '/static/'
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECURITY WARNING: don't run with debug turned on in production!
-# SECRET
 SECRET_DIR = os.path.join(ROOT_DIR, '.secrets')
-secrets = json.load(open(os.path.join(SECRET_DIR, 'base.json')))
-SECRET_KEY = 'secrets[SECRET_KEY]'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
+
+# SECRET
+SECRETS = json.load(open(os.path.join(SECRET_DIR, 'base.json')))
+SECRET_KEY = SECRETS['SECRET_KEY']
+
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [STATIC_DIR]
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 
 
 AUTH_USER_MODEL = 'members.User'
+
 
 # Application definition
 
@@ -66,8 +63,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-# TEMPLATES
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,8 +81,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Password validation
@@ -120,9 +114,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
-
-STATIC_URL = '/static/'
