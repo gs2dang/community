@@ -47,7 +47,10 @@ def post_detail(request, pk):
 
     # 특정 게시글에 바로 접속했을 경우, 해당 게시글이 위치한 페이지 목록으로 갈 수 없기에
     # 게시글 1페이지 이동하게 한다.
-    if '?page=' not in before_url:
+    try:
+        if '?page=' not in before_url:
+            before_url = False
+    except TypeError:
         before_url = False
 
     # 조회수 증가

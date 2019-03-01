@@ -1,6 +1,6 @@
 from .base import *
 
-SECRETS = json.load(open(os.path.join(SECRET_DIR, 'base.json')))
+SECRETS = json.load(open(os.path.join(SECRET_DIR, 'production.json')))
 
 DEBUG = True
 
