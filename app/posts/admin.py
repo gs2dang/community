@@ -5,7 +5,7 @@ from .models import Post, Comment, PostLike
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'author', 'title', 'get_comment', 'content_size', 'view_count', 'like_count', 'created', 'modified']
+    list_display = ['id', 'author', 'title', 'get_comment_count', 'content_size', 'view_count', 'like_count', 'created', 'modified']
     list_per_page = 20
     search_fields = ['title']
 
@@ -13,20 +13,20 @@ class PostAdmin(admin.ModelAdmin):
         return len(obj.content)
     content_size.short_description = '글자 수'
 
-    def get_comment(self, obj):
-        '''
-        해당 포스트에 연결된 댓글을 불러옴
-        :param obj:
-        :return:
-        '''
-        return obj.comment_set.get(id=4)
+    def get_comment_count(self, obj):
+        return obj.comment_set.all().count()
+    get_comment_count.short_description = '댓글 수'
 
 
 @admin.register(Comment)
 class Comment(admin.ModelAdmin):
-    list_display = ['id', 'author', 'post', 'created', 'modified']
+    list_display = ['id', 'author', 'get_post_id', 'post', 'created', 'modified']
     list_per_page = 20
     search_fields = ['author']
+
+    def get_post_id(self, obj):
+        return obj.post.id
+    get_post_id.short_description = '게시글 번호'
 
 
 admin.site.register(PostLike)

@@ -106,3 +106,10 @@ def post_create(request):
         'form': form,
     }
     return render(request, 'posts/post_create.html', context)
+
+
+def post_like(request, pk):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=pk)
+        post.like_switch(request.user)
+        return redirect(post)

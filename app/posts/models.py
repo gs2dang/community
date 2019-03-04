@@ -24,6 +24,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-id']
+        verbose_name = '포스트'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.title
@@ -35,6 +37,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=[self.id])
+
+    def like_switch(self, author):
+        postlike, postlike_created = self.postlike_set.get_or_create(author=author)
+        if not postlike_created:
+            postlike.delete()
 
 
 class Comment(models.Model):
@@ -51,8 +58,16 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
+    class Meta:
+        verbose_name = '댓글'
+        verbose_name_plural = verbose_name
+
 
 class PostLike(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = '좋아요'
+        verbose_name_plural = verbose_name

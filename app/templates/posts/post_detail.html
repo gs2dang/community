@@ -4,6 +4,13 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>{{ post.title }}</h1>
+            <small>
+                {{ post.author }},
+                {{ post.created }} 작성,
+                {{ post.modified }} 수정
+            </small>
+            <br>
+            <br>
             <br>
             {{ post.content|linebreaks }}
             {% if before_url %}
@@ -13,7 +20,20 @@
             {% endif %}
             {% if user.is_authenticated %}
             <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-primary btn-sm'>수정</a>
+            <form action="{% url 'posts:post_like'  pk=post.pk %}" method="POST">
+                {% csrf_token %}
+                {% if user in post.like_user.all %}
+                <button type="submit" class="btn btn-outline-primary btn-icon" style="background-color:transparent;">
+                    <i class="fas fa-thumbs-up" style="font-size:20px;"></i>
+                </button>
+                {% else %}
+                <button type="submit" class="btn btn-outline-primary btn-icon" style="background-color:transparent;">
+                    <i class="far fa-thumbs-up" style="font-size:20px;"></i>
+                </button>
+                {% endif %}
+            </form>
             {% endif %}
+
             <hr>
             {% if user.is_authenticated %}
             <form action="" method="POST">
