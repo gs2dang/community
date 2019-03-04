@@ -19,14 +19,25 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Comment)
-class Comment(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = ['id', 'author', 'get_post_id', 'post', 'created', 'modified']
     list_per_page = 20
-    search_fields = ['author']
+    search_fields = ['author__username']
 
     def get_post_id(self, obj):
         return obj.post.id
     get_post_id.short_description = '게시글 번호'
 
 
-admin.site.register(PostLike)
+@admin.register(PostLike)
+class PostLikeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'author', 'get_author_id', 'post', 'get_post_id', 'created']
+    list_per_page = 20
+
+    def get_post_id(self, obj):
+        return obj.post.id
+    get_post_id.short_description = '포스트 번호'
+
+    def get_author_id(self, obj):
+        return obj.author.id
+    get_author_id.short_description = '글쓴이 번호'

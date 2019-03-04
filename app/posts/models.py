@@ -64,9 +64,9 @@ class Comment(models.Model):
 
 
 class PostLike(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='글쓴이')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='포스트')
+    created = models.DateTimeField('작성일', auto_now_add=True)
 
     class Meta:
         verbose_name = '좋아요'
