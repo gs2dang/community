@@ -20,10 +20,10 @@ def post_list(request):
 
     # 페이지 범위
     current_page = int(page) if type(page) == str else page
-    if current_page < 6:
+    if current_page < 5:
         start_index = 0
     else:
-        start_index = current_page - 6
+        start_index = current_page - 5
 
     if current_page == paginator.num_pages or current_page + 1 == paginator.num_pages:
         end_index = paginator.num_pages

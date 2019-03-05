@@ -9,9 +9,7 @@
                 {{ post.created }} 작성,
                 {{ post.modified }} 수정
             </small>
-            <br>
-            <br>
-            <br>
+            <hr>
             {{ post.content|linebreaks }}
             {% if before_url %}
             <a href="{{ before_url }}" class='btn btn-primary btn-sm'>글 목록</a>
