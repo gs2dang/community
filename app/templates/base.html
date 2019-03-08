@@ -9,83 +9,23 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
     <!-- fontawesome icon -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-
-    <style>
-        th {
-            text-align:center;
-        }
-
-        .center-tag {
-            display: flex;
-            padding-left: 0px;
-            list-style: none;
-            border-radius: 0.25rem;
-            justify-content: center;
-        }
-
-        .navbar-button {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            background-color: #f8f8f8;
-            color: #777;
-        }
-
-        .form-group {
-            width: 100%;
-        }
-
-        .text-danger {
-            margin-bottom: 5px;
-        }
-
-        .alert {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 0;
-            text-align:center;
-        }
-
-        .btn-block {
-            width: 100%;
-            margin: 20px 0 0;
-        }
-
-        .form-control {
-            margin: 0 0 10px;
-        }
-
-        .btn-space {
-            margin-right: 5px;
-        }
-
-        .span-align {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .btn-icon {
-            padding: 3px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.7.2-web/css/all.min.css' %}">
+    <script src="{% static 'fontawesome-free-5.7.2-web/js/all.min.js' %}"></script>
+    <!-- post 관련 CSS -->
+    <link rel="stylesheet" href="{% static 'css/post.css'%}" type="text/css">
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div id="navbar" class="collapse navbar-collapse">
-            <!--<ul class="navbar-nav mr-auto">-->
-            <!--<li class="nav-item active"><a class="nav-link" href="{% url 'posts:post_list' %}">Home</a></li>-->
-            <!--</ul>-->
-            <a class="navbar-brand" href="{% url 'posts:post_list' %}">HOME</a>
-            <ul class="navbar-nav ml-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="{% url 'posts:post_list' %}">HOME</a>
+        <ul class="navbar-nav ml-auto">
+            <div id="navbar" class="collapse navbar-collapse">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <form action="{% url 'members:logout_view' %}" method="POST">
                         {% csrf_token %}
-                        <!--<input type="button" class="btn btn-outline-secondary btn-sm" value="로그아웃">-->
-                        <button type="submit" class="btn btn-outline-secondary btn-sm btn-space">로그아웃</button>
+                        <input type="submit" class="btn btn-outline-secondary btn-sm btn-space" value="로그아웃">
                     </form>
                 </li>
                 {% else %}
@@ -97,8 +37,8 @@
                 </li>
                 {% endif %}
                 <li class="nav-item"><span>{{ user.nickname }}</span></li>
-            </ul>
-        </div>
+            </div>
+        </ul>
     </nav>
 </div>
 <br>

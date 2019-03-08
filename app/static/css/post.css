@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+/* 테이블 위치, 너비 */
+th {
+    text-align:center;
+}
+
+.id {
+    width: 10%;
+    text-align:center;
+}
+
+.writer {
+    width: 15%;
+    text-align:center;
+}
+
+.view-count {
+    width: 7%;
+    text-align:center;
+}
+
+.like-count {
+    width: 7%;
+    text-align:center;
+}
+/* 회원가입, 로그인, 로그아웃 간격 */
+.btn-space {
+    margin-right: 10px;
+}
+
+/* 좋아요 크기 작게 함*/
+.btn-icon {
+    padding: 3px;
+}
+
+/* 회원가입 및 로그인 버튼 아래로 이동 */
+.btn-block {
+    margin: 20px 0 0;
+}
+
+/* 모든 a 태그는 검정 */
+a {
+    color: 	#000000;
+}
+
+        .navbar-button {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background-color: #f8f8f8;
+            color: #777;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .text-danger {
+            margin-bottom: 5px;
+        }
+
+        .alert {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 0;
+            text-align:center;
+        }
