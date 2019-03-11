@@ -13,22 +13,20 @@ def post_list(request):
     if search:
         # icontains은 대소문자 구별하지 않음
         posts = posts.filter(title__icontains=search)
+
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
     page = request.GET.get('page', 1)
     posts = paginator.get_page(page)
 
-    # 페이지 범위
-    current_page = int(page) if type(page) == str else page
-    if current_page < 5:
-        start_index = 0
-    else:
-        start_index = current_page - 5
-
-    if current_page == paginator.num_pages or current_page + 1 == paginator.num_pages:
-        end_index = paginator.num_pages
-    else:
-        end_index = current_page + 5
+    # 페이지 범위 설정
+    page_numbers_range = 10
+    max_index = len(paginator.page_range)
+    current_page = int(page) if page else 1
+    start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
+    end_index = start_index + page_numbers_range
+    if end_index >= max_index:
+        end_index = max_index
     paginator_range = paginator.page_range[start_index:end_index]
 
     context = {

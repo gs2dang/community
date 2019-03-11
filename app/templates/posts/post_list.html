@@ -54,10 +54,10 @@
                 {% endif %}
             </li>
             {% for page in paginator_range %}
-            <!-- 현재 페이지 -->
+            <!-- 페이지 범위 및 현재 페이지 -->
             {% if posts.number == page %}
             <li class="page-item active">
-                <span class="page-link">{{ page }}<span class="sr-only">Current</span></span>
+                <span class="page-link">{{ page }}<span class="sr-only">(current)</span></span>
             </li>
             {% else %}
             <li class="page-item">
