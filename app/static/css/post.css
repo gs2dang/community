@@ -40,8 +40,13 @@ th {
 }
 
 /* 모든 a 태그는 검정 */
-a {
+.title a {
     color: 	#000000;
+}
+
+a.page-link {
+    color: 	#666;
+    border: none;
 }
 
         .navbar-button {

@@ -53,8 +53,8 @@
                 <a class="page-link disabled" href="?page={{ posts.previous_page_number }}" tabindex="-1">&laquo;</a>
                 {% endif %}
             </li>
-            {% for page in paginator_range %}
             <!-- 페이지 범위 및 현재 페이지 -->
+            {% for page in paginator_range %}
             {% if posts.number == page %}
             <li class="page-item active">
                 <span class="page-link">{{ page }}<span class="sr-only">(current)</span></span>

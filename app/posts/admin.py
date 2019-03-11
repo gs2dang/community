@@ -40,4 +40,4 @@ class PostLikeAdmin(admin.ModelAdmin):
 
     def get_author_id(self, obj):
         return obj.author.id
-    get_author_id.short_description = '글쓴이 번호'
+    get_author_id.short_description = '좋아요 누른 사람 PK'
