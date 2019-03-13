@@ -11,27 +11,35 @@ th {
 }
 
 .writer {
-    width: 15%;
+    width: 16%;
     text-align:center;
 }
 
-.view-count {
+.view-count, .like-count {
     width: 7%;
     text-align:center;
 }
 
-.like-count {
-    width: 7%;
-    text-align:center;
-}
 /* 회원가입, 로그인, 로그아웃 간격 */
 .btn-space {
     margin-right: 10px;
 }
 
-/* 좋아요 크기 작게 함*/
+/* 좋아요 크기, 배경화면은 투*/
 .btn-icon {
     padding: 3px;
+    background-color:transparent;
+}
+
+/* 좋아요 버튼 색상 변경 */
+.btn-outline-primary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* 좋아요, 삭제 버튼 inline */
+.del-form, .like-form {
+    display: inline-block;
 }
 
 /* 회원가입 및 로그인 버튼 아래로 이동 */
@@ -39,15 +47,42 @@ th {
     margin: 20px 0 0;
 }
 
-/* 모든 a 태그는 검정 */
+/* 목록에 보이는 title 색상 변경 */
 .title a {
     color: 	#000000;
 }
 
+/* 페이지네이션 */
 a.page-link {
     color: 	#666;
     border: none;
 }
+
+/* 현재 페이지네이션 색상 변경 */
+.page-item.active .page-link {
+    background-color: #fff;
+    border-color: #000;
+    color: #000;
+}
+
+/* 일정 길이 넘어가면 생략 기호 */
+td.title > a{
+    max-width: 642px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
+
+td.writer > span {
+    width: 155px;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
+
 
         .navbar-button {
             padding-top: 15px;

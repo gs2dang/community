@@ -106,6 +106,13 @@ def post_create(request):
     return render(request, 'posts/post_create.html', context)
 
 
+def post_delete(request, pk):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=pk)
+        post.delete()
+        return redirect('posts:post_list')
+
+
 def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
