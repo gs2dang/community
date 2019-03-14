@@ -15,6 +15,7 @@ class Post(models.Model):
     content = models.TextField('글 내용')
     view_count = models.PositiveIntegerField('조회수', default=0)
     like_count = models.PositiveIntegerField('추천수', default=0)
+    comment_count = models.PositiveSmallIntegerField('댓글수', default=0)
     like_user = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='PostLike'
@@ -33,6 +34,11 @@ class Post(models.Model):
     @property
     def update_view_count(self):
         self.view_count += 1
+        self.save()
+
+    @property
+    def update_commet_count(self):
+        self.comment_count += 1
         self.save()
 
     def get_absolute_url(self):

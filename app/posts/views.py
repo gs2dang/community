@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm, CommentForm
-from .models import Post
+from .models import Post, Comment
 
 
 def post_list(request):
@@ -60,6 +60,7 @@ def post_detail(request, pk):
             comment = form.save(commit=False)
             comment.author = request.user
             comment.post = post
+            post.update_commet_count
             comment.save()
             return redirect(post)
     else:

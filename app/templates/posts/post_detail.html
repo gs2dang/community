@@ -51,14 +51,29 @@
             </form>
             <hr>
             {% endif %}
-            <div class="comment">
+
                 {% for comment in post.comment_set.all %}
-                    <h4>{{ comment.author.nickname }}<small> {{ comment.created }}</small></h4>
-                    <br>
+            <div class="comment">
+                <h5 class="comment-writer">{{ comment.author.nickname }}
+                    <small> {{ comment.modified }}</small>
+                </h5>
+                <br>
                     {{ comment.content }}
-                    <hr>
+                <br>
+                <br>
+                {% if user.id == post.author.id %}
+                <form action="" method="POST" class="comment-modify-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary btn-sm">수정</button>
+                </form>
+                <form action="" method="POST" class="comment-del-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
+                </form>
+                {% endif %}
+                <hr>
+                </div>
                 {% endfor %}
-            </div>
         </div>
     </div>
 </div>

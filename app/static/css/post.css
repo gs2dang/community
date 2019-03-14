@@ -38,8 +38,8 @@ th {
 }
 
 /* 좋아요, 삭제 버튼 inline */
-.del-form, .like-form {
-    display: inline-block;
+.del-form, .like-form, .comment-modify-form, .comment-del-form {
+    display: inline;
 }
 
 /* 회원가입 및 로그인 버튼 아래로 이동 */

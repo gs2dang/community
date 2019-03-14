@@ -34,7 +34,11 @@
             <tr>
                 <td class="id">{{ post.id }}</td>
                 <td class="title">
-                    <a href="{% url 'posts:post_detail' post.pk%}">{{ post.title }}</a>
+                    <a href="{% url 'posts:post_detail' post.pk%}">{{ post.title }}
+                        {% if post.comment_count > 0 %}
+                        <small>({{ post.comment_count }})</small>
+                        {% endif %}
+                    </a>
                 </td>
                 <td class="writer"><span>{{ post.author.nickname }}</span></td>
                 <td class="view-count">{{ post.view_count }}</td>
