@@ -1,9 +1,8 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
 
-from .forms import PostForm, CommentForm
-from .models import Post, Comment
+from ..forms import PostForm, CommentForm
+from ..models.post_models import Post
 
 
 def post_list(request):
@@ -53,9 +52,6 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-    # 조회수 증가
-    post.update_view_count
-
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -69,11 +65,15 @@ def post_detail(request, pk):
     else:
         form = CommentForm()
 
+        # 조회수 증가
+        post.update_view_count
+
     context = {
         'post': post,
         'before_url': before_url,
         'form': form,
     }
+
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -121,14 +121,4 @@ def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.like_switch(request.user)
-        return redirect(post)
-
-
-def comment_delete(request, post_pk, comment_pk):
-    if request.method == 'POST':
-        post = get_object_or_404(Post, pk=post_pk)
-        comment = Comment.objects.get(pk=comment_pk, post=post)
-        post.update_comment_count()
-        # comment.update_comment_count()
-        comment.delete()
         return redirect(post)

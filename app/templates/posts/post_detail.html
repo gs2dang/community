@@ -58,11 +58,10 @@
                     <small> {{ comment.modified }}</small>
                 </h5>
                 <br>
-                    {{ comment.content }}
-                <br>
+                    {{ comment.content|linebreaks }}
                 <br>
                 {% if user == post.author %}
-                <form action=""
+                <form action="{% url 'posts:comment_edit' comment.post.id comment.id %}"
                       method="POST" class="comment-modify-form">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">수정</button>
