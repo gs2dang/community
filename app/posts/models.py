@@ -36,10 +36,15 @@ class Post(models.Model):
         self.view_count += 1
         self.save()
 
-    @property
-    def update_commet_count(self):
-        self.comment_count += 1
-        self.save()
+    def update_comment_count(self, switch=False):
+        if switch:
+            self.comment_count += 1
+            self.save()
+        else:
+            self.comment_count -= 1
+            if self.comment_count < 0:
+                self.comment_count = 0
+            self.save()
 
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=[self.id])
@@ -47,7 +52,6 @@ class Post(models.Model):
     def like_switch(self, author):
         postlike, postlike_created = self.postlike_set.get_or_create(author=author)
         if postlike_created:
-            # 추천을 했다(새로 생성)
             self.like_count += 1
         else:
             postlike.delete()
@@ -72,6 +76,15 @@ class Comment(models.Model):
     class Meta:
         verbose_name = '댓글'
         verbose_name_plural = verbose_name
+
+    # 아래 코드는 왜 아닐까?
+    # def update_comment_count(self, switch=False):
+    #     if switch:
+    #         self.post.comment_count += 1
+    #         self.save()
+    #     else:
+    #         self.post.comment_count -= 1
+    #         self.save()
 
 
 class PostLike(models.Model):

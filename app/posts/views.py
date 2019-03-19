@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+
 from .forms import PostForm, CommentForm
 from .models import Post, Comment
 
@@ -60,7 +62,8 @@ def post_detail(request, pk):
             comment = form.save(commit=False)
             comment.author = request.user
             comment.post = post
-            post.update_commet_count
+            post.update_comment_count(switch=True)
+            # comment.update_comment_count(switch=True)
             comment.save()
             return redirect(post)
     else:
@@ -118,4 +121,14 @@ def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.like_switch(request.user)
+        return redirect(post)
+
+
+def comment_delete(request, post_pk, comment_pk):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=post_pk)
+        comment = Comment.objects.get(pk=comment_pk, post=post)
+        post.update_comment_count()
+        # comment.update_comment_count()
+        comment.delete()
         return redirect(post)

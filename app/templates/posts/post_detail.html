@@ -61,12 +61,14 @@
                     {{ comment.content }}
                 <br>
                 <br>
-                {% if user.id == post.author.id %}
-                <form action="" method="POST" class="comment-modify-form">
+                {% if user == post.author %}
+                <form action=""
+                      method="POST" class="comment-modify-form">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">수정</button>
                 </form>
-                <form action="" method="POST" class="comment-del-form">
+                <form action="{% url 'posts:comment_del' comment.post.id comment.id %}"
+                      method="POST" class="comment-del-form">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
                 </form>
