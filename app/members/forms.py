@@ -5,12 +5,10 @@ User = get_user_model()
 
 
 class SignupForm(forms.Form):
-    username = forms.CharField(label='ID', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label="Password Confirm", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    nickname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='아이디', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label="비밀번호 확인", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    nickname = forms.CharField(label='닉네임', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -42,8 +40,8 @@ class SignupForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='ID', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='아이디', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self):
         cleaned_data = super().clean()

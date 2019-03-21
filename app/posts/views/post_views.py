@@ -12,8 +12,16 @@ def post_list(request):
     # 아무 값도 넣지 않으면 '' 즉 공백이 들어가게 됨
     search = request.GET.get('search', '')
     if search:
-        # icontains은 대소문자 구별하지 않음
-        posts = posts.filter(title__icontains=search)
+        dropdown = request.GET['dropdown']
+        if dropdown == 'title':
+            # icontains은 대소문자 구별하지 않음
+            posts = posts.filter(title__icontains=search)
+        elif dropdown == 'content':
+            posts = posts.filter(content__icontains=search)
+        elif dropdown == 'nickname':
+            posts = posts.filter(author__nickname__icontains=search)
+        elif dropdown == 'title-conten':
+            posts = posts.filter(title__icontains=search, content__icontains=search)
 
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
@@ -52,26 +60,27 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            post.update_comment_count(switch=True)
-            # comment.update_comment_count(switch=True)
-            comment.save()
-            return redirect(post)
-    else:
-        form = CommentForm()
+    # comment_new 만들기 전 코드
+    # if request.method == 'POST':
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.author = request.user
+    #         comment.post = post
+    #         post.update_comment_count(switch=True)
+    #         # comment.update_comment_count(switch=True)
+    #         comment.save()
+    #         return redirect(post)
+    # else:
+    #     form = CommentForm()
 
-        # 조회수 증가
-        post.update_view_count
+    # 조회수 증가
+    post.update_view_count
 
     context = {
         'post': post,
         'before_url': before_url,
-        'form': form,
+        'commentform': CommentForm(),
     }
 
     return render(request, 'posts/post_detail.html', context)
@@ -86,7 +95,6 @@ def post_edit(request, pk):
             return redirect(post)
     else:
         form = PostForm(instance=post)
-
     context = {
         'form': form,
     }
