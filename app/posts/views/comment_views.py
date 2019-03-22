@@ -18,23 +18,26 @@ def comment_new(request, post_pk):
             return redirect(post)
 
 
-def comment_edit(request, pk):
-    comment = Comment.objects.get(pk=pk)
-    post_id = comment.post.id
-    post = get_object_or_404(Post, pk=post_id)
+def comment_edit(request, post_pk, comment_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    comment = Comment.objects.get(pk=comment_pk, post=post)
     if request.method == 'POST':
-        form = CommentForm(request.POST, instance=request.comment)
+        form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
             return redirect(post)
-    return render(request, 'posts/post_edit.html', {'commentform': CommentForm(instance=request.comment)})
+    else:
+        form = CommentForm(instance=comment)
+    context = {
+        'form': form,
+    }
+    return render(request, 'comments/comment_edit.html', context)
 
 
-def comment_delete(request, pk):
+def comment_delete(request, post_pk, comment_pk):
     if request.method == 'POST':
-        comment = get_object_or_404(Comment, pk=pk)
-        post_id = comment.post.id
-        post = get_object_or_404(Post, pk=post_id)
+        post = get_object_or_404(Post, pk=post_pk)
+        comment = get_object_or_404(Comment, pk=comment_pk, post=post)
         post.update_comment_count()
         # comment.update_comment_count()
         comment.delete()

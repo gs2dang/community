@@ -20,8 +20,8 @@
                 <a href="{% url 'posts:post_list' %}" class='btn btn-secondary btn-sm'>글 목록</a>
                 {% endif %}
                 {% if user.is_authenticated %}
-                <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-secondary btn-sm'>수정</a>
                 {% if user.id == post.author.id %}
+                <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-secondary btn-sm'>수정</a>
                 <form action="{% url 'posts:post_del' pk=post.pk %}" method="POST" class="del-form">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
@@ -41,6 +41,20 @@
                     {% endif %}
                 </form>
                 {% endif %}
+
+                <form action="{% url 'posts:post_like'  pk=post.pk %}" method="POST" class="like-form">
+                    {% csrf_token %}
+                    {% if user in post.like_user.all %}
+                    <button type="submit" class="btn btn-outline-primary btn-icon">
+                        <i class="fas fa-thumbs-up" style="font-size:20px;"></i>
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-outline-primary btn-icon">
+                        <i class="far fa-thumbs-up" style="font-size:20px;"></i>
+                    </button>
+                    {% endif %}
+                </form>
+
                 <span>{{ post.like_count }}</span>
             </div>
             <hr>
@@ -64,17 +78,18 @@
                 <br>
                 {{ comment.content|linebreaks }}
                 <br>
-                {% if user == post.author %}
-                <form action="{% url 'posts:comment_edit' pk=comment.id %}"
-                      method="POST" class="comment-modify-form">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary btn-sm">수정</button>
-                </form>
-                <form action="{% url 'posts:comment_del' pk=comment.id %}"
+                {% if user.is_authenticated %}
+                {% if user.id == comment.author.id %}
+                <a href="{% url 'posts:comment_edit' post_pk=post.pk comment_pk=comment.pk %}"
+                   class="btn btn-secondary btn-sm">
+                    수정
+                </a>
+                <form action="{% url 'posts:comment_del' post_pk=post.pk comment_pk=comment.pk %}"
                       method="POST" class="comment-del-form">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
                 </form>
+                {% endif %}
                 {% endif %}
                 <hr>
             </div>
