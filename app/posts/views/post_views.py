@@ -60,19 +60,6 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-    # comment_new 만들기 전 코드
-    # if request.method == 'POST':
-    #     form = CommentForm(request.POST)
-    #     if form.is_valid():
-    #         comment = form.save(commit=False)
-    #         comment.author = request.user
-    #         comment.post = post
-    #         post.update_comment_count(switch=True)
-    #         # comment.update_comment_count(switch=True)
-    #         comment.save()
-    #         return redirect(post)
-    # else:
-    #     form = CommentForm()
 
     # 조회수 증가
     post.update_view_count
@@ -129,4 +116,5 @@ def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.like_switch(request.user)
+        request.session['views_count'] = 'False'
         return redirect(post)

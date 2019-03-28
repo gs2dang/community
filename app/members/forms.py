@@ -23,6 +23,12 @@ class SignupForm(forms.Form):
             raise forms.ValidationError("비밀번호가 다릅니다.")
         return password2
 
+    def clean_nickname(self):
+        nickname = self.cleaned_data.get('nickname')
+        if User.objects.filter(nickname=nickname).exists():
+            raise forms.ValidationError("이미 사용 중인 닉네임입니다.")
+        return nickname
+
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
