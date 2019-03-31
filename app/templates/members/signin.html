@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <div class="col-sm-12 center-tag">
-    <form action="{% url 'members:signin' %}" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-            <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
-            {{ field }}
+    <div class="row">
+        <div class="col
+            col-lg-4 offset-lg-4
+            col-md-6 offset-md-3
+            col-sm-8 offset-sm-2">
+            <div class="col-sm-12 center-tag">
+                <form action="{% url 'members:signin' %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-secondary btn-block">로그인</button>
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </form>
+            </div>
         </div>
-        {% endfor %}
-        <button class="btn btn-secondary btn-block">로그인</button>
-        {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ error }}
-        </div>
-        {% endfor %}
-    </form>
     </div>
 </div>
 {% endblock %}

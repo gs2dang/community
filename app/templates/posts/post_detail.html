@@ -32,11 +32,11 @@
                     <form action="{% url 'posts:post_like'  pk=post.pk %}" method="POST" class="like-form">
                         {% csrf_token %}
                         {% if user in post.like_user.all %}
-                        <button type="submit" class="btn btn-outline-primary btn-icon">
+                        <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
                             <i class="fas fa-thumbs-up" style="font-size:20px;"></i>
                         </button>
                         {% else %}
-                        <button type="submit" class="btn btn-outline-primary btn-icon">
+                        <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
                             <i class="far fa-thumbs-up" style="font-size:20px;"></i>
                         </button>
                         {% endif %}

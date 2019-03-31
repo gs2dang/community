@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 from ..forms import PostForm, CommentForm
@@ -60,7 +61,6 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-
     # 조회수 증가
     post.update_view_count
 
@@ -116,5 +116,4 @@ def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.like_switch(request.user)
-        request.session['views_count'] = 'False'
         return redirect(post)

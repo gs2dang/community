@@ -114,3 +114,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
