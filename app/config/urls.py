@@ -17,11 +17,15 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
+urlpatterns_api = [
+    path('user/', include('members.urls'))
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('posts.urls')),
     path('user/', include('members.urls')),
+    path('api/', include(urlpatterns_api)),
 ]
 
 if settings.DEBUG:
