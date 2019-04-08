@@ -45,7 +45,10 @@ class SignupForm(forms.Form):
             raise forms.ValidationError('2~15자의 한글, 영문 대소문자, 숫자를 입력하세요')
 
         for i in range(len(nickname)):
-            if not u"\uAC00" <= nickname[i] <= u"\uD7A3" and not re.match(r'^[a-zA-Z0-9]*', nickname):
+            if not (u"\u0030" <= nickname[i] <= u"\u0039" or \
+                    u"\u0041" <= nickname[i] <= u"\u005A" or \
+                    u"\u0061" <= nickname[i] <= u"\u007A" or \
+                    u"\uAC00" <= nickname[i] <= u"\uD7A3"):
                 raise forms.ValidationError('사용할 수 없는 닉네임입니다.')
         return nickname
 
