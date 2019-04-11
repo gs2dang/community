@@ -36,6 +36,9 @@
                     <a href="{% url 'members:signin' %}" class="nav-linke btn btn-outline-secondary btn-sm">로그인</a>
                 </li>
                 {% endif %}
+                {% if user.nickname == '' %}
+                <li class="nav-item"><span>{{ user.username }}</span></li>
+                {% endif %}
                 <li class="nav-item"><span>{{ user.nickname }}</span></li>
             </div>
         </ul>

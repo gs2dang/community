@@ -18,12 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 
 
+urlpatterns_api = [
+    path('user/', include('members.api_urls')),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('posts.urls')),
     path('user/', include('members.urls')),
+    path('api/', include(urlpatterns_api)),
+    path('accounts/', include('allauth.urls')),
 ]
+
 
 if settings.DEBUG:
     import debug_toolbar

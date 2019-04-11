@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model, authenticate
 User = get_user_model()
 
 
-class SignupForm(forms.Form):
+class Signup_Form(forms.Form):
     username = forms.CharField(max_length=20, label='아이디',
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(max_length=30, label='비밀번호',

@@ -1,18 +1,19 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm
+from .forms import Signup_Form, LoginForm
+
 
 User = get_user_model()
 
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = Signup_Form(request.POST)
         if form.is_valid():
             login(request, form.cleaned_data)
             return redirect('posts:post_list')
     else:
-        form = SignupForm()
+        form = Signup_Form()
 
     context = {
         'form': form,

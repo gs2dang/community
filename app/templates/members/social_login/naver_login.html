@@ -1,0 +1,8 @@
+{% load static %}
+{% load socialaccount %}
+
+{% static 'social_images/Naver_White.PNG' as naver_button %}
+
+<a href="{% provider_login_url 'naver' %}">
+    <img src="{{ naver_button }}"width="100%" height="40">
+</a>
