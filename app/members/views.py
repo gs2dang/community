@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model, login, logout
 from django.shortcuts import render, redirect
 from .forms import Signup_Form, LoginForm
 
-
 User = get_user_model()
 
 

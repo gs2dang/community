@@ -50,7 +50,12 @@
                         {% endif %}
                     </a>
                 </td>
+                <!-- 네이버로 로그인 했을 때는 username 보이도록 함-->
+                {% if post.author.nickname == '' %}
+                <td class="writer"><span>{{ post.author.username }}</span></td>
+                {% else %}
                 <td class="writer"><span>{{ post.author.nickname }}</span></td>
+                {% endif %}
                 <td class="view-count">{{ post.view_count }}</td>
                 <td class="like-count">{{ post.like_count }}</td>
             </tr>
