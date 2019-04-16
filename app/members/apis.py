@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer
+
 User = get_user_model()
+
 
 class UserListAPIView(generics.ListAPIView):
     """
