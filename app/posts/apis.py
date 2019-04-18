@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import PostListSerializer, PostSerializer
-from .models import Post
+from .serializers import PostListSerializer, AllPostListSerializer
+from .models import Post, PostLike
 
 User = get_user_model()
 
@@ -27,7 +27,7 @@ class PostAPIView(APIView):
 
     def get(self, request, id):
         post = Post.objects.get(id=id)
-        serializer = PostSerializer(post)
+        serializer = AllPostListSerializer(post)
         return Response(serializer.data)
 
 
@@ -41,5 +41,19 @@ class UserPostListAPIView(APIView):
     def get(self, request):
         user = User.objects.get(username=request.user)
         post = Post.objects.filter(author__id=user.id)
-        serializer = PostSerializer(post, many=True)
+        serializer = AllPostListSerializer(post, many=True)
+        return Response(serializer.data)
+
+
+class UserLikeAPIView(APIView):
+    """"
+    유저 본인이 좋아요 누른 글 불러오기
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user = User.objects.get(username=request.user)
+        post = Post.objects.filter(postlike__author_id=user.id)
+        serializer = PostListSerializer(post, many=True)
         return Response(serializer.data)

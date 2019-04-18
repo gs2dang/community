@@ -4,19 +4,18 @@ from .models import Post
 
 
 class PostListSerializer(serializers.ModelSerializer):
+    """
+    좋아요 누른 유저를 제외하고 모든 항목 표시
+    """
     class Meta:
         model = Post
-        fields = ('id',
-                  'author',
-                  'title',
-                  'content',
-                  'view_count',
-                  'like_count',
-                  'created',
-                  'modified')
+        exclude = ('like_user',)
 
 
-class PostSerializer(serializers.ModelSerializer):
+class AllPostListSerializer(serializers.ModelSerializer):
+    """
+    좋아요 유저 포함하여 모든 항목 표시
+    """
     like_user = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
