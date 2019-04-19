@@ -57,3 +57,29 @@ class UserLikeAPIView(APIView):
         post = Post.objects.filter(postlike__author_id=user.id)
         serializer = PostListSerializer(post, many=True)
         return Response(serializer.data)
+
+
+class SearchAPIView(APIView):
+    """
+    검색 결과 글 불러오기
+    """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request):
+        posts = Post.objects.all()
+        search =request.data.get('search', '')
+
+        if search:
+            dropdown = request.data.get('dropdown')
+            if dropdown == 'title':
+                # icontains은 대소문자 구별하지 않음
+                posts = posts.filter(title__icontains=search)
+            elif dropdown == 'content':
+                posts = posts.filter(content__icontains=search)
+            elif dropdown == 'nickname':
+                posts = posts.filter(author__nickname__icontains=search)
+            elif dropdown == 'title-conten':
+                posts = posts.filter(title__icontains=search, content__icontains=search)
+
+        serializer = PostListSerializer(posts, many=True)
+        return Response(serializer.data)
