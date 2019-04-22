@@ -11,3 +11,5 @@ def nickname_length_validator(value):
 class User(AbstractUser):
     nickname = models.CharField('닉네임', max_length=20, validators=[nickname_length_validator],
                                 help_text="2~15 글자를 입력해주세요")
+    login_type = models.CharField('로그인 유형', max_length=25, default='local')
+

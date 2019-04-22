@@ -142,7 +142,8 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
 
     'allauth.socialaccount.providers.naver',
-    ]
+    'allauth.socialaccount.providers.facebook',
+]
 
 SITE_ID = 2
 
@@ -153,6 +154,26 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['public_profile'],
+        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'}, 로그인할 때마다 비밀번호 입력하는지 확인
+        'FIELDS': [
+            'id',
+            'name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v3.2',
+    }
+}

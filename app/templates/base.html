@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="{% static 'fontawesome-free-5.7.2-web/css/all.min.css' %}">
     <script src="{% static 'fontawesome-free-5.7.2-web/js/all.min.js' %}"></script>
     <!-- post 관련 CSS -->
-    <link rel="stylesheet" href="{% static 'css/post.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}" type="text/css">
+    <!-- 소셜 로그인 버튼 -->
+    <link rel="stylesheet" href="{% static 'bootstrap-social-gh-pages/bootstrap-social.css' %}" type="text/css">
 </head>
 <body>
 <div class="container">
@@ -35,9 +37,6 @@
                 <li class="nav-item">
                     <a href="{% url 'members:signin' %}" class="btn btn-outline-secondary btn-sm">로그인</a>
                 </li>
-                {% endif %}
-                {% if user.nickname == '' %}
-                <li class="nav-item"><span>{{ user.username }}</span></li>
                 {% endif %}
                 <li class="nav-item"><span>{{ user.nickname }}</span></li>
             </div>
