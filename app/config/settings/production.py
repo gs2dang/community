@@ -2,7 +2,7 @@ import requests
 
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 SECRETS = json.load(open(os.path.join(SECRET_DIR, 'production.json')))
 

@@ -33,14 +33,14 @@ class SignupForm(forms.Form):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         password = cleaned_data.get('password2')
+        nickname = cleaned_data.get('nickname')
         if self.errors:
             pass
         else:
             User.objects.create_user(username=username,
                                      password=password,
-                                     first_name=cleaned_data.get('first_name'),
-                                     last_name=cleaned_data.get('last_name'),
-                                     nickname=cleaned_data.get('nickname'))
+                                     nickname=nickname,
+                                     )
         user = authenticate(username=username, password=password)
         return user
 
