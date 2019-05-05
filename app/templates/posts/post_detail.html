@@ -5,7 +5,12 @@
         <div class="col-sm-12">
             <h3>{{ post.title }}</h3>
             <small>
+                <!-- 네이버로 로그인 했을 때는 username 보이도록 함-->
+                {% if post.author.nickname == '' %}
+                {{ post.author.username }},
+                {% else %}
                 {{ post.author.nickname }},
+                {% endif %}
                 {{ post.created }} 작성,
                 {{ post.modified }} 수정
             </small>

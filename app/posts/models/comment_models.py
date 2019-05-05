@@ -21,12 +21,3 @@ class Comment(models.Model):
     class Meta:
         verbose_name = '댓글'
         verbose_name_plural = verbose_name
-
-    # 아래 코드는 왜 아닐까?
-    # def update_comment_count(self, switch=False):
-    #     if switch:
-    #         self.post.comment_count += 1
-    #         self.save()
-    #     else:
-    #         self.post.comment_count -= 1
-    #         self.save()

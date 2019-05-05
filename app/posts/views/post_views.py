@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 from ..forms import PostForm, CommentForm
@@ -53,6 +52,20 @@ def post_detail(request, pk):
     # 이전에 위치한 주소를 가져오기
     before_url = request.META.get('HTTP_REFERER')
 
+    # 처음에는 'like_button'이 없으니
+    if 'like_button' not in request.session._session:
+        post.update_view_count
+
+    # 게시글 추천 후 post_detail 클래스 오면서
+    # 조회수 코드가 다시 실행되는 것을 막기 위한 코드
+    else:
+        if request.session._session['like_button']:
+            request.session.modified = True
+            request.session._session['like_button'] = False
+        else:
+            # 조회수 증가
+            post.update_view_count
+
     # 특정 게시글에 바로 접속했을 경우, 해당 게시글이 위치한 페이지 목록으로 갈 수 없기에
     # 게시글 1페이지 이동하게 한다.
     try:
@@ -61,8 +74,7 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-    # 조회수 증가
-    post.update_view_count
+
 
     context = {
         'post': post,
@@ -116,4 +128,11 @@ def post_like(request, pk):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk=pk)
         post.like_switch(request.user)
+        # session 값을 저장할 수 있도록 만들어 주는 코드
+        # https://docs.djangoproject.com/en/dev/topics/http/sessions/#when-sessions-are-saved
+        request.session.modified = True
+
+        # 좋아요 버튼을 누르면 True 값을 줘서 post_detail 클래스에서
+        # 조회수 방지 목적으로 사용
+        request.session['like_button'] = True
         return redirect(post)
