@@ -21,3 +21,15 @@ class AllPostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+
+class PostModificationSerializer(serializers.ModelSerializer):
+    """
+    게시글 수정
+    """
+    class Meta:
+        model = Post
+        fields = (
+            'title',
+            'content',
+        )

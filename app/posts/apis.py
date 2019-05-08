@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, permissions, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import PostListSerializer, AllPostListSerializer
+from .serializers import PostListSerializer, AllPostListSerializer, PostModificationSerializer
 from .models import Post, PostLike
 
 User = get_user_model()
@@ -21,14 +22,23 @@ class PostListAPIView(generics.ListAPIView):
 
 class PostAPIView(APIView):
     """
-    특정 글 불러오기
+    특정 글 읽기, 삭제, 수정
     """
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request, id):
         post = Post.objects.get(id=id)
         serializer = AllPostListSerializer(post)
         return Response(serializer.data)
+
+    def delete(self, request, id):
+        post = Post.objects.get(id=id)
+        post.delete()
+        message = {
+            "message": "게시글을 삭제했습니다."
+        }
+        return Response(message, status=status.HTTP_204_NO_CONTENT)
 
 
 class UserPostListAPIView(APIView):
