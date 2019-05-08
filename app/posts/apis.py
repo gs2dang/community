@@ -40,6 +40,13 @@ class PostAPIView(APIView):
         }
         return Response(message, status=status.HTTP_204_NO_CONTENT)
 
+    def patch(self, request, id):
+        post = get_object_or_404(Post, id=id)
+        serializer = PostModificationSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
 
 class UserPostListAPIView(APIView):
     """"
