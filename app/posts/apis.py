@@ -12,17 +12,33 @@ from .models import Post, PostLike
 User = get_user_model()
 
 
-class PostListAPIView(generics.ListAPIView):
+class PostListAPIView(APIView):
     """
     모든 글 불러오기
     """
-    queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    # generics.ListAPIView
+    # queryset = Post.objects.all()
+    # serializer_class = PostListSerializer
+    def get(self, request):
+        posts = Post.objects.all()
+        serializer = PostListSerializer(posts, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer =  PostListSerializer(data={**request.data, 'author': request.user.id},)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class PostAPIView(APIView):
+class PostDetailAPIView(APIView):
     """
     특정 글 읽기, 삭제, 수정
+    게시글 번호(id)가 있어야 되는 작업이기에 한 곳에 놔뒀다.
     """
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
