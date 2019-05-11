@@ -84,6 +84,11 @@ td.writer > span {
 }
 
 
+/* 댓글 버튼 간격 주기*/
+.comment_btn {
+    padding-top: 15px;
+}
+
         .navbar-button {
             padding-top: 15px;
             padding-bottom: 15px;

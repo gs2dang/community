@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <form action="" method="POST">
-        {% csrf_token %}
-        제목 : {{ form.title }}
-        <br>
-        내용 : {{ form.content }}
-        <br>
-        <button class="btn btn-secondary btn-sm">수정 완료</button>
-    </form>
-</div>
+<form action="" method="POST">
+    {% csrf_token %}
+    <h4>제목</h4>
+    {{ form.title }}
+    <br>
+    <h4>내용</h4>
+    {{ form.media }}
+    {{ form.content }}
+    <br>
+    <button class="btn btn-secondary btn-sm">수정 완료</button>
+</form>
 {% endblock %}

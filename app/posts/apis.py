@@ -1,13 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.http import Http404
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, permissions, status
+from rest_framework import permissions, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import PostListSerializer, AllPostListSerializer, PostModificationSerializer
-from .models import Post, PostLike
+from .models import Post
 
 User = get_user_model()
 
@@ -43,13 +44,19 @@ class PostDetailAPIView(APIView):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    def get_object(self, id):
+        try:
+            return Post.objects.get(id=id)
+        except Post.DoesNotExist:
+            raise Http404
+
     def get(self, request, id):
-        post = Post.objects.get(id=id)
+        post = self.get_object(id)
         serializer = AllPostListSerializer(post)
         return Response(serializer.data)
 
     def delete(self, request, id):
-        post = Post.objects.get(id=id)
+        post = self.get_object(id)
         post.delete()
         message = {
             "message": "게시글을 삭제했습니다."
@@ -57,7 +64,7 @@ class PostDetailAPIView(APIView):
         return Response(message, status=status.HTTP_204_NO_CONTENT)
 
     def patch(self, request, id):
-        post = get_object_or_404(Post, id=id)
+        post = self.get_object(id)
         serializer = PostModificationSerializer(post, data=request.data)
         if serializer.is_valid():
             serializer.save()

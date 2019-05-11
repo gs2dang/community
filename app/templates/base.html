@@ -16,35 +16,40 @@
     <link rel="stylesheet" href="{% static 'css/post.css' %}" type="text/css">
     <!-- 소셜 로그인 버튼 -->
     <link rel="stylesheet" href="{% static 'bootstrap-social-gh-pages/bootstrap-social.css' %}" type="text/css">
+    <!-- CKEditor 4 -->
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="{% url 'posts:post_list' %}">HOME</a>
-        <ul class="navbar-nav ml-auto">
-            <div id="navbar" class="collapse navbar-collapse">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <form action="{% url 'members:logout_view' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-outline-secondary btn-sm btn-space" value="로그아웃">
-                    </form>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'members:signup' %}" class="btn btn-outline-secondary btn-sm btn-space">회원가입</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'members:signin' %}" class="btn btn-outline-secondary btn-sm">로그인</a>
-                </li>
-                {% endif %}
-                <li class="nav-item"><span>{{ user.nickname }}</span></li>
-            </div>
-        </ul>
-    </nav>
+    <div class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <a class="navbar-brand" href="{% url 'posts:post_list' %}">HOME</a>
+            <ul class="navbar-nav ml-auto">
+                <div id="navbar" class="collapse navbar-collapse">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form action="{% url 'members:logout_view' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-outline-secondary btn-sm btn-space" value="로그아웃">
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'members:signup' %}" class="btn btn-outline-secondary btn-sm btn-space">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'members:signin' %}" class="btn btn-outline-secondary btn-sm">로그인</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item"><span>{{ user.nickname }}</span></li>
+                </div>
+            </ul>
+        </nav>
+    </div>
+
+    <br>
+    {% block content %}
+    {% endblock %}
 </div>
-<br>
-{% block content %}
-{% endblock %}
 </body>
 </html>

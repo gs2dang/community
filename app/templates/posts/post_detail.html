@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="border_top">
             <h3>{{ post.title }}</h3>
             <small>
                 <!-- 네이버로 로그인 했을 때는 username 보이도록 함-->
@@ -14,85 +14,93 @@
                 {{ post.created }} 작성,
                 {{ post.modified }} 수정
             </small>
-            <hr>
-            <br>
-            <div class="post-content">{{ post.content|linebreaks }}</div>
-            <br>
-            <div>
-                {% if before_url %}
-                <a href="{{ before_url }}" class='btn btn-secondary btn-sm'>글 목록</a>
-                {% else %}
-                <a href="{% url 'posts:post_list' %}" class='btn btn-secondary btn-sm'>글 목록</a>
-                {% endif %}
-
-                {% if user.is_authenticated %}
-                    {% if user.id == post.author.id %}
-                    <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-secondary btn-sm'>수정</a>
-                    <form action="{% url 'posts:post_del' pk=post.pk %}" method="POST" class="del-form">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
-                    </form>
-                    {% endif %}
-                <!-- 로그인 됐을 경우 좋아요 버튼 Form -->
-                    <form action="{% url 'posts:post_like'  pk=post.pk %}" method="POST" class="like-form">
-                        {% csrf_token %}
-                        {% if user in post.like_user.all %}
-                        <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
-                            <i class="fas fa-thumbs-up" style="font-size:20px;"></i>
-                        </button>
-                        {% else %}
-                        <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
-                            <i class="far fa-thumbs-up" style="font-size:20px;"></i>
-                        </button>
-                        {% endif %}
-                    </form>
-                <!-- 로그인이 안 되어 있을 경우 보이는 좋아요 버튼 -->
-                {% else %}
-                    <button type="submit" class="btn btn-outline-primary btn-icon">
-                        <i class="far fa-thumbs-up" style="font-size:20px;"></i>
-                    </button>
-                {% endif %}
-
-                <span>{{ post.like_count }}</span>
+        </div>
+        <hr>
+        <br>
+        <div class="border_view">
+            <div class="post-content">
+                {{ post.content|safe }}
             </div>
-            <hr>
+        </div>
+        <br>
+        <div class="border_bottom">
+            {% if before_url %}
+            <a href="{{ before_url }}" class='btn btn-secondary btn-sm'>글 목록</a>
+            {% else %}
+            <a href="{% url 'posts:post_list' %}" class='btn btn-secondary btn-sm'>글 목록</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+            <a href="{% url 'posts:post_edit' post.id %}" class='btn btn-secondary btn-sm'>수정</a>
+            <form action="{% url 'posts:post_del' pk=post.pk %}" method="POST" class="del-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
+            </form>
+            {% endif %}
+            <!-- 로그인 됐을 경우 좋아요 버튼 Form -->
+            <form action="{% url 'posts:post_like'  pk=post.pk %}" method="POST" class="like-form">
+                {% csrf_token %}
+                {% if user in post.like_user.all %}
+                <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
+                    <i class="fas fa-thumbs-up" style="font-size:20px;"></i>
+                </button>
+                {% else %}
+                <button type="submit" class="btn btn-outline-primary btn-icon" value="like">
+                    <i class="far fa-thumbs-up" style="font-size:20px;"></i>
+                </button>
+                {% endif %}
+            </form>
+            <!-- 로그인이 안 되어 있을 경우 보이는 좋아요 버튼 -->
+            {% else %}
+            <button type="submit" class="btn btn-outline-primary btn-icon">
+                <i class="far fa-thumbs-up" style="font-size:20px;"></i>
+            </button>
+            {% endif %}
+
+            <span>{{ post.like_count }}</span>
+        </div>
+        <hr>
+        <div class="comment_wrap">
             {% if user.is_authenticated %}
             <!-- 댓글 입력 Form -->
             <div class="col-sm-10">
                 <form action="{% url 'posts:comment_new' post_pk=post.pk %}" method="POST">
                     {% csrf_token %}
                     {{ commentform.content }}
-                    <input type="submit" class="btn btn-secondary btn-sm" value="댓글">
+                    <div class="comment_btn">
+                        <input type="submit" class="btn btn-secondary btn-sm" value="댓글">
+                    </div>
                 </form>
             </div>
-            <hr>
-            {% endif %}
-            <!-- 해당 글 모든 댓글 출력 -->
-            {% for comment in post.comment_set.all %}
-            <div class="comment">
-                <h5 class="comment-writer">{{ comment.author.nickname }}
-                    <small> {{ comment.modified }}</small>
-                </h5>
-                <br>
-                {{ comment.content|linebreaks }}
-                <br>
-                {% if user.is_authenticated %}
-                {% if user.id == comment.author.id %}
-                <a href="{% url 'posts:comment_edit' post_pk=post.pk comment_pk=comment.pk %}"
-                   class="btn btn-secondary btn-sm">
-                    수정
-                </a>
-                <form action="{% url 'posts:comment_del' post_pk=post.pk comment_pk=comment.pk %}"
-                      method="POST" class="comment-del-form">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
-                </form>
-                {% endif %}
-                {% endif %}
-                <hr>
-            </div>
-            {% endfor %}
         </div>
+        <hr>
+        {% endif %}
+        <!-- 모든 댓글 출력 -->
+        {% for comment in post.comment_set.all %}
+        <div class="comment">
+            <h5 class="comment-writer">{{ comment.author.nickname }}
+                <small> {{ comment.modified }}</small>
+            </h5>
+            <br>
+            {{ comment.content|linebreaks }}
+            <br>
+            {% if user.is_authenticated %}
+            {% if user.id == comment.author.id %}
+            <a href="{% url 'posts:comment_edit' post_pk=post.pk comment_pk=comment.pk %}"
+               class="btn btn-secondary btn-sm">
+                수정
+            </a>
+            <form action="{% url 'posts:comment_del' post_pk=post.pk comment_pk=comment.pk %}"
+                  method="POST" class="comment-del-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
+            </form>
+            {% endif %}
+            {% endif %}
+            <hr>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

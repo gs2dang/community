@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
@@ -12,7 +13,8 @@ class Post(models.Model):
         verbose_name='작성자'
     )
     title = models.CharField('글 제목', max_length=50)
-    content = models.TextField('글 내용')
+    # content = models.TextField('글 내용')
+    content = RichTextField()
     view_count = models.PositiveIntegerField('조회수', default=0)
     like_count = models.PositiveIntegerField('추천수', default=0)
     comment_count = models.PositiveSmallIntegerField('댓글수', default=0)

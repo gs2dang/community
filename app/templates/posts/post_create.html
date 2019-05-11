@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <div class="col-sm-12 center-tag">
-        <form action="" method="POST">
-            {% csrf_token %}
-            <p>
-            <h4>제목</h4>
-                {{ form.title }}
-                <br>
-            <h4>내용</h4>
-                {{ form.content }}
-            </p>
-            <!--<button type="submit" class="btn btn-primary btn-block btn-sm">작성 완료</button>-->
-            <input type="submit" class="btn btn-secondary" value="작성">
-        </form>
-    </div>
+<div class="col-sm-12 center-tag">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h4>제목</h4>
+        {{ form.title }}
+        <br>
+        <h4>내용</h4>
+        {{ form.media }}
+        {{ form.content }}
+        <input type="submit" class="btn btn-secondary" value="작성">
+    </form>
 </div>
 {% endblock %}

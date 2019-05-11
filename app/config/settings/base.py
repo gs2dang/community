@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'ckeditor',
 ]
 
 
@@ -177,3 +178,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v3.2',
     }
 }
+
+# Django-CKEditor
+AWS_QUERYSTRING_AUTH = False
