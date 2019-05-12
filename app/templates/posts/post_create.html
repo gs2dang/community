@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="col-sm-12 center-tag">
-    <form action="" method="POST">
+<div class="col-sm-8">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h4>제목</h4>
         {{ form.title }}
@@ -9,6 +9,8 @@
         <h4>내용</h4>
         {{ form.media }}
         {{ form.content }}
+        {{ form.image }}
+        <br>
         <input type="submit" class="btn btn-secondary" value="작성">
     </form>
 </div>

@@ -12,6 +12,9 @@
 # Static
 /.static
 
+# Media
+/.media
+
 # ebextensions
 /.ebextensions
 

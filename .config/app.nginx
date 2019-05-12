@@ -11,5 +11,10 @@ server{
 
     location /static/ {
         alias /srv/project/.static/;
+
+    }
+
+    location /media/ {
+        alias /srv/project/.media/;
     }
 }

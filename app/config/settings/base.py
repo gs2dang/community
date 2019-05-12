@@ -33,6 +33,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
+
 
 AUTH_USER_MODEL = 'members.User'
 
@@ -53,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'ckeditor',
+    'ckeditor_uploader',
 ]
 
 
@@ -180,4 +185,12 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Django-CKEditor
+## Using S3
 AWS_QUERYSTRING_AUTH = False
+
+## UPLOAD Files
+## /media/uploads/image.jpg
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+## restrict upload functionality to image files only
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
