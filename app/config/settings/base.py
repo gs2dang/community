@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+
     'ckeditor',
     'ckeditor_uploader',
 ]
@@ -125,8 +126,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Session 종료 시 없애
+
+# 웹 브라우저 닫으면 다시 로그인 하도록 함
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -138,6 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
 
 # Django-allauth
 INSTALLED_APPS += [
@@ -163,7 +167,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 
-
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
@@ -184,13 +187,14 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+
 # Django-CKEditor
-## Using S3
+## Using S3 ##
 AWS_QUERYSTRING_AUTH = False
-
-## UPLOAD Files
-## /media/uploads/image.jpg
+## UPLOAD Files ##
+## /media/uploads/image.jpg ##
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
-## restrict upload functionality to image files only
+## restrict upload functionality to image files only ##
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
+## This restricts access to uploaded images to the uploading user ##
+CKEDITOR_RESTRICT_BY_USER = True
