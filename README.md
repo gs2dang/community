@@ -1,10 +1,18 @@
 # 게시판 만들기
 
-인스타그램으로 Django를 배웠지만 MTV 개념이나 각 Model, View, Form 구현하는 것이 너무 어려웠습니다. 
+배운 내용을 복습하기 위해서 게시판을 만들었습니다. 학원에
 
+<br>
 
+## 설치
 
-## Secrets
+```
+pip install -r requirements/base.tx
+```
+
+<br>
+
+## secrets
 
 Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파일을 설정합니다.
 
@@ -50,3 +58,23 @@ Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파�
 ## Model
 
 ![](/home/feynman/Pictures/bulletin_board_db.png)
+
+<br>
+
+## 기능
+
+- 유저
+  - 회원가입
+  - 로그인: 소셜 로그인은 로컬에서 되도록 구현
+- 포스트
+  - 작성
+  - 수정
+  - 삭제
+  - 좋아요
+- 댓글
+  - 작성
+  - 수성
+  - 삭제
+- 그 외
+  - 조건에 따른 글 검색
+  - 페이지네이션
