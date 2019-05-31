@@ -1,5 +1,6 @@
 from allauth.account.signals import user_signed_up
 from django.contrib.auth import get_user_model, login, logout
+from django.core.mail import EmailMessage
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from .forms import Signup_Form, LoginForm
@@ -12,6 +13,13 @@ def signup(request):
         form = Signup_Form(request.POST)
         if form.is_valid():
             login(request, form.cleaned_data)
+            subject = f'{form.cleaned_data.username}님, 게시판에 오신 것을 환영합니다'
+            message = '''
+            개인 프로젝트 "게시판"에 가입해 주셔서 감사합니다.
+            '''
+            to_email = form.cleaned_data.email
+            email = EmailMessage(subject, message, to=[to_email])
+            email.send()
             return redirect('posts:post_list')
     else:
         form = Signup_Form()
@@ -58,7 +66,8 @@ def set_initial_user_names(request, user, sociallogin=None, **kwargs):
 
     From http://birdhouse.org/blog/2013/12/03/django-allauth-retrieve-firstlast-names-from-fb-twitter-google/comment-page-1/
     """
-
+    # 소셜 로그인을 하면 별명을 받아서 nickname 필드에 넣어준다.
+    # receiver 좀 더 알 필요가 있다.
     if sociallogin:
         if sociallogin.account.provider == 'facebook':
             user.nickname = sociallogin.account.extra_data['name']

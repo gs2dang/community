@@ -7,7 +7,7 @@ COPY        ./  /srv/project
 WORKDIR     /srv/project/app
 
 # 정적 파일 모으기
-RUN         python3 manage.py collectstatic --noinput
+#RUN         python3 manage.py collectstatic --noinput
 
 # 기존 Nginx 파일 삭제 및 새 Nginx 파일 복사
 RUN         rm -rf /etc/nginx/sites-available/* && \

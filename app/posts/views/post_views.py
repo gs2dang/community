@@ -114,7 +114,7 @@ def post_create(request):
     context = {
         'form': form,
     }
-    return render(request, 'posts/post_create.html', context)
+    return render(request, 'posts/post_edit.html', context)
 
 
 def post_delete(request, pk):

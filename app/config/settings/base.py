@@ -37,7 +37,7 @@ STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 
-
+# User
 AUTH_USER_MODEL = 'members.User'
 
 
@@ -131,7 +131,7 @@ USE_TZ = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
-# REST Framework
+# ---------- REST Framework ---------- #
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
@@ -143,7 +143,7 @@ REST_FRAMEWORK = {
 }
 
 
-# Django-allauth
+# ---------- Django-allauth ---------- #
 INSTALLED_APPS += [
     'django.contrib.sites',
 
@@ -188,13 +188,23 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-# Django-CKEditor
-## Using S3 ##
+# ---------- Django-CKEditor ---------- #
+# Using S3
 AWS_QUERYSTRING_AUTH = False
-## UPLOAD Files ##
-## /media/uploads/image.jpg ##
+# UPLOAD Files
+# /media/uploads/image.jpg
 CKEDITOR_UPLOAD_PATH = "uploads/"
-## restrict upload functionality to image files only ##
+# restrict upload functionality to image files only
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
-## This restricts access to uploaded images to the uploading user ##
+# This restricts access to uploaded images to the uploading user
 CKEDITOR_RESTRICT_BY_USER = True
+
+
+# ---------- Email ---------- #
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = SECRETS['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = SECRETS['EMAIL_HOST_PASSWORD']
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

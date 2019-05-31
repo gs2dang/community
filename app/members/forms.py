@@ -14,6 +14,7 @@ class Signup_Form(forms.Form):
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(max_length=30, label="비밀번호 확인",
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.CharField(label='이메일', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     nickname = forms.CharField(max_length=15, label='닉네임',
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
 
@@ -56,12 +57,14 @@ class Signup_Form(forms.Form):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         password = cleaned_data.get('password2')
+        email = cleaned_data.get('email')
         nickname = cleaned_data.get('nickname')
         if self.errors:
             pass
         else:
             User.objects.create_user(username=username,
                                      password=password,
+                                     email=email,
                                      nickname=nickname,
                                      )
         user = authenticate(username=username, password=password)

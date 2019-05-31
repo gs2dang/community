@@ -5,5 +5,5 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'nickname']
+    list_display = ['id', 'username', 'nickname', 'login_type']
     list_per_page = 30
