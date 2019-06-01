@@ -38,6 +38,12 @@ class Signup_Form(forms.Form):
             raise forms.ValidationError('6~30자의 영문 대소문자, 숫자, 특수문자(@#$%^&)를 입력하세요')
         return password2
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("이미 가입한 이메일입니다.")
+        return email
+
     def clean_nickname(self):
         nickname = self.cleaned_data.get('nickname')
         if User.objects.filter(nickname=nickname).exists():

@@ -1,6 +1,6 @@
 # 게시판 만들기
 
-배운 내용을 복습하기 위해서 게시판을 만들었습니다. 학원에
+배운 내용을 복습하고  대부분의 사이트에는 게시판이 있기에 이걸 만들었습니다.
 
 <br>
 
@@ -16,11 +16,16 @@ pip install -r requirements/base.tx
 
 Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파일을 설정합니다.
 
+Root 폴더
+└── .secret 폴더
+
 `base.json`
 
 ```json
 {
-   "SECRET_KEY" : "<SECRET_KEY>"
+   "SECRET_KEY" : "<SECRET_KEY>",
+    "EMAIL_HOST_USER": "<Google@gmail.com>",
+    "EMAIL_HOST_PASSWORD": "<Gmail Password>"
 }
 ```
 
@@ -57,7 +62,7 @@ Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파�
 
 ## Model
 
-![](/home/feynman/Pictures/bulletin_board_db.png)
+![](images/bulletin_board_db.png)
 
 <br>
 
@@ -65,7 +70,7 @@ Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파�
 
 - 유저
   - 회원가입
-  - 로그인: 소셜 로그인은 로컬에서 되도록 구현
+  - 로그인(소셜 로그인은 로컬에서 되도록 구현)
 - 포스트
   - 작성
   - 수정
@@ -78,3 +83,4 @@ Root(bulletin_board 폴더) 밑에 `.secrets` 폴더를 만들고 각각의 파�
 - 그 외
   - 조건에 따른 글 검색
   - 페이지네이션
+  - 회원가입 시 이메일 보내기/home/feynman/Pictures
