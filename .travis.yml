@@ -14,7 +14,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_8a111481f0c7_key -iv $encrypted_8a111481f0c7_iv
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
-- chmod +x bin/ecs-deploy
+- chmod +x bin/deploy.sh
 
 deploy:
   provider: script
