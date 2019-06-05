@@ -13,12 +13,12 @@ curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-de
 sudo chmod +x /usr/bin/ecs-deploy
 
 # or login DockerHub
- docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+ docker login --username '$DOCKER_USERNAME' --password '$DOCKER_PASSWORD'
 
 # build the docker image and push to an image repository
-docker build -t "$DOCKER_USERNAME"/"$IMAGE_REPO_NAME" .
-docker tag "$DOCKER_USERNAME"/"$IMAGE_REPO_NAME":latest "$IMAGE_REPO_FULLNAME":latest
-docker push "$IMAGE_REPO_FULLNAME":latest
+docker build -t '$DOCKER_USERNAME'/'$IMAGE_REPO_NAME' .
+docker tag '$DOCKER_USERNAME'/'$IMAGE_REPO_NAME':latest '$IMAGE_REPO_FULLNAME':latest
+docker push '$IMAGE_REPO_FULLNAME':latest
 
 # update an AWS ECS service with the new image
-ecs-deploy -c "$CLUSTER_NAME" -n "$SERVICE_NAME" -i "$IMAGE_REPO_FULLNAME":latest
+ecs-deploy -c '$CLUSTER_NAME' -n '$SERVICE_NAME' -i '$IMAGE_REPO_FULLNAME':latest
