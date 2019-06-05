@@ -15,8 +15,10 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 
-deploy:
-  provider: script
-  script: bash .bin/deploy.sh
-  on:
-    branch: master
+after_success:
+  - bash bin/deploy.sh
+#deploy:
+#  provider: script
+#  script: bash .bin/deploy.sh
+#  on:
+#    branch: master
