@@ -18,10 +18,10 @@ sudo chmod +x /usr/bin/ecs-deploy
 docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
 # Build and push the image to the repository
-docker build -t $DOCKER_USERNAME/$IMAGE_REPO_NAME:testtest .
+docker build -t $DOCKER_USERNAME/$IMAGE_REPO_NAME .
 #echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 docker tag $DOCKER_USERNAME/$IMAGE_REPO_NAME:latest $IMAGE_REPO_FULLNAME:latest
-docker push $DOCKER_USERNAME/$IMAGE_REPO_NAME:testtest
+docker push $DOCKER_USERNAME/$IMAGE_REPO_NAME:latest
 
 # deploy the new image to the aws ecs
 ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_FULLNAME:latest
