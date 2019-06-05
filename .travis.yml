@@ -7,8 +7,8 @@ services:
 - docker
 install:
 - pip install -r requirements/base.txt
-script:
-- python app/manage.py test
+#script:
+#- python app/manage.py test
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_8a111481f0c7_key -iv $encrypted_8a111481f0c7_iv
