@@ -16,8 +16,5 @@ before_install:
 - tar xvf secrets.tar
 - chmod +x bin/deploy.sh
 
-deploy:
-  provider: script
-  script: bash bin/deploy.sh
-  on:
-    branch: dev
+after_success:
+  - bash bin/deploy.sh
