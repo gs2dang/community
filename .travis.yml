@@ -5,9 +5,9 @@ python:
 - 3.7.2
 services:
 - docker
-install:
-- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
-- sudo chmod +x /usr/bin/ecs-deploy
+#install:
+#- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
+#- sudo chmod +x /usr/bin/ecs-deploy
 #- pip install -r requirements/base.txt
 #script:
 #- python app/manage.py test
@@ -17,6 +17,5 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 
-
 after_success:
-  - bash .bin/deploy.sh
+  - bash .bin/docker.sh
