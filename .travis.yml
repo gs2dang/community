@@ -13,7 +13,7 @@ services:
 install:
   - pip install -r requirements/base.txt
 #- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
-#- sudo chmod +x /usr/bin/ecs-deploy
+- sudo chmod +x .bin/docker.sh
 
 #script:
 #- python app/manage.py test
