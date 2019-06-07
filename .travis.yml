@@ -16,7 +16,6 @@ install:
 script:
 - python app/manage.py test
 
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_8a111481f0c7_key -iv $encrypted_8a111481f0c7_iv
   -in secrets.tar.enc -out secrets.tar -d
@@ -24,4 +23,4 @@ before_install:
 - chmod +x .bin/docker.sh
 
 after_success:
-  - .bin/docker.sh
+  - bash .bin/deploy.sh
