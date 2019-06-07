@@ -11,7 +11,7 @@ services:
   - docker
 
 install:
-  - pip install -r requirements/base.txt
+  - pip install -r requirements/dev.txt
 #- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
 
 #script:
