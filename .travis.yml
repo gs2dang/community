@@ -1,14 +1,20 @@
 sudo: required
+
 dist: xenial
+
 language: python
+
 python:
-- 3.7.2
+  - 3.7.2
+
 services:
-- docker
-#install:
+  - docker
+
+install:
+  - pip install -r requirements/base.txt
 #- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
 #- sudo chmod +x /usr/bin/ecs-deploy
-#- pip install -r requirements/base.txt
+
 #script:
 #- python app/manage.py test
 
