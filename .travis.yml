@@ -13,7 +13,6 @@ services:
 install:
   - pip install -r requirements/base.txt
 #- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
-- sudo chmod +x .bin/docker.sh
 
 #script:
 #- python app/manage.py test
@@ -22,6 +21,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_8a111481f0c7_key -iv $encrypted_8a111481f0c7_iv
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
+- chmod +x .bin/docker.sh
 
 after_success:
   - bash .bin/docker.sh
