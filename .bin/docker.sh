@@ -1,3 +1,3 @@
-docker build -t $DOCKER_USERNAME/$IMAGE_REPO_NAME .
+docker build -t gs2dang/bulletin_board:test .
 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-docker push $DOCKER_USERNAME/$IMAGE_REPO_NAME:test
+docker push gs2dang/bulletin_board:test
