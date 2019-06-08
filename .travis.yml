@@ -23,4 +23,4 @@ before_install:
 - chmod +x .bin/docker.sh
 
 after_success:
-  - bash .bin/deploy.sh
+  - bash .bin/docker.sh
