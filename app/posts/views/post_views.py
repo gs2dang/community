@@ -23,6 +23,14 @@ def post_list(request):
         elif dropdown == 'title-conten':
             posts = posts.filter(title__icontains=search, content__icontains=search)
 
+    # 검색 결과가 없으면, 이미지 표시함
+    if not posts:
+        context = {
+            'search': search
+        }
+        return render(request, 'posts/notfound.html', context)
+
+
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
     page = request.GET.get('page', 1)
