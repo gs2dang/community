@@ -89,6 +89,14 @@ td.writer > span {
     padding-top: 15px;
 }
 
+/* Jumbotron 배경 이미지 설정 */
+.jumbotron {
+    height: 20em;
+    background-color: white;
+    background-image: url("../images/main_img.png");
+    background-size: 100% 100%;
+}
+
         .navbar-button {
             padding-top: 15px;
             padding-bottom: 15px;
