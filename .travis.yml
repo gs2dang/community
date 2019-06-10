@@ -24,3 +24,4 @@ before_install:
 
 after_success:
   - bash .bin/docker.sh
+  - bash .bin/deploy.sh
