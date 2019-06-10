@@ -13,9 +13,9 @@ curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-de
 sudo chmod +x /usr/bin/ecs-deploy
 echo "ecs-deploy install success"
 
-docker build -t $DOCKER_USERNAME/$REPO_NAME:test .
+docker build -t $DOCKER_USERNAME/$REPO_NAME .
 echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-docker push $DOCKER_USERNAME/$REPO_NAME:test
+docker push $DOCKER_USERNAME/$REPO_NAME:latest
 
 # deploy the new image to the aws ecs
 ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $DOCKER_USERNAME/$REPO_NAME:latest
