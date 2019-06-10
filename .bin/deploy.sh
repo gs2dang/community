@@ -1,5 +1,5 @@
 # install aws-sdk
-sudo pip3 install --user awscli
+sudo pip install --user awscli
 export PATH=$PATH:$HOME/.local/bin
 echo "awscli install and PATH setting success"
 
