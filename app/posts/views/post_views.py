@@ -82,8 +82,6 @@ def post_detail(request, pk):
     except TypeError:
         before_url = False
 
-
-
     context = {
         'post': post,
         'before_url': before_url,

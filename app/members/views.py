@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model, login, logout
 from django.core.mail import EmailMessage
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
-from .forms import Signup_Form, LoginForm
+from .forms import Signup_Form, LoginForm, InfoForm
 
 User = get_user_model()
 
@@ -48,6 +48,25 @@ def signin(request):
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
+        return redirect('posts:post_list')
+
+
+def info(request):
+    if request.method == 'POST':
+        form = InfoForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+    form = InfoForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'members/info.html', context)
+
+
+def delete_account(request):
+    if request.method == 'POST':
+        user = User.objects.get(id=request.user.id)
+        user.delete()
         return redirect('posts:post_list')
 
 

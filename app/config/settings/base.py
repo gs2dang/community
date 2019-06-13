@@ -166,7 +166,8 @@ AUTHENTICATION_BACKENDS = (
 )
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
-
+SOCIALACCOUNT_EMAIL_VERIFICATION = True
+SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
@@ -174,6 +175,7 @@ SOCIALACCOUNT_PROVIDERS = {
         # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'}, 로그인할 때마다 비밀번호 입력하는지 확인
         'FIELDS': [
             'id',
+            'email',
             'name',
             'verified',
             'locale',

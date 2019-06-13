@@ -89,3 +89,11 @@ class LoginForm(forms.Form):
         if user is None:
             raise forms.ValidationError("아이디 또는 비밀번호가 틀렸습니다.")
         return user
+
+
+class InfoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = {
+            'nickname'
+        }

@@ -31,6 +31,9 @@
                             {% csrf_token %}
                             <input type="submit" class="btn btn-outline-secondary btn-sm btn-space" value="로그아웃">
                         </form>
+                    <li class="nav-item">
+                        <a href="{% url 'members:info' %}" class="btn btn-outline-secondary btn-sm btn-space">내 정보</a>
+                    </li>
                     </li>
                     {% else %}
                     <li class="nav-item">
