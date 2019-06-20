@@ -23,7 +23,7 @@ def post_list(request):
         elif dropdown == 'title-conten':
             posts = posts.filter(title__icontains=search, content__icontains=search)
 
-    # 검색 결과가 없으면, 이미지 표시함
+    # 검색 결과가 없을 경우
     if not posts:
         context = {
             'search': search

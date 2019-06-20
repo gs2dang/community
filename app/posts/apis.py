@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from rest_framework import permissions, status
+from rest_framework import permissions, status, serializers
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -56,7 +56,7 @@ class PostDetailAPIView(APIView):
         return Response(serializer.data)
 
     def delete(self, request, id):
-        post = self.get_object(id)
+        post = get_object_or_404(Post, id=id, author=request.user)
         post.delete()
         message = {
             "message": "게시글을 삭제했습니다."
@@ -64,7 +64,7 @@ class PostDetailAPIView(APIView):
         return Response(message, status=status.HTTP_204_NO_CONTENT)
 
     def patch(self, request, id):
-        post = self.get_object(id)
+        post = get_object_or_404(Post, id=id, author=request.user)
         serializer = PostModificationSerializer(post, data=request.data)
         if serializer.is_valid():
             serializer.save()

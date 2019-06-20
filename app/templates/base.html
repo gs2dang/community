@@ -31,10 +31,11 @@
                             {% csrf_token %}
                             <input type="submit" class="btn btn-outline-secondary btn-sm btn-space" value="로그아웃">
                         </form>
+                    </li>
                     <li class="nav-item">
                         <a href="{% url 'members:info' %}" class="btn btn-outline-secondary btn-sm btn-space">내 정보</a>
                     </li>
-                    </li>
+                    <li class="nav-item"><span>{{ user.nickname }}</span></li>
                     {% else %}
                     <li class="nav-item">
                         <a href="{% url 'members:signup' %}" class="btn btn-outline-secondary btn-sm btn-space">회원가입</a>
@@ -43,7 +44,6 @@
                         <a href="{% url 'members:signin' %}" class="btn btn-outline-secondary btn-sm">로그인</a>
                     </li>
                     {% endif %}
-                    <li class="nav-item"><span>{{ user.nickname }}</span></li>
                 </div>
             </ul>
         </nav>
