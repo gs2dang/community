@@ -30,7 +30,6 @@ def post_list(request):
         }
         return render(request, 'posts/notfound.html', context)
 
-
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
     page = request.GET.get('page', 1)
@@ -38,12 +37,17 @@ def post_list(request):
 
     # 페이지 범위 설정
     page_numbers_range = 10
+    # paginator.page_range 코드는 range(1, x)를 반환
     max_index = len(paginator.page_range)
+    # page 타입은 str이기에 int로 변환
     current_page = int(page) if page else 1
+    # int를 사용하면 소수점은 무시
+    # 예 1.1을 int 안에 넣으면 1을 리턴
     start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
     end_index = start_index + page_numbers_range
     if end_index >= max_index:
         end_index = max_index
+    # 리스트 슬라이싱
     paginator_range = paginator.page_range[start_index:end_index]
 
     context = {

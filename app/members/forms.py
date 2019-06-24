@@ -48,15 +48,20 @@ class Signup_Form(forms.Form):
         nickname = self.cleaned_data.get('nickname')
         if User.objects.filter(nickname=nickname).exists():
             raise forms.ValidationError("이미 사용 중인 닉네임입니다.")
-        elif len(nickname) < 2:
+        elif len(nickname) < 2 or \
+                not re.match(r'^[a-zA-Z가-힣0-9]*$', nickname):
             raise forms.ValidationError('2~15자의 한글, 영문 대소문자, 숫자를 입력하세요')
 
-        for i in range(len(nickname)):
-            if not (u"\u0030" <= nickname[i] <= u"\u0039" or \
-                    u"\u0041" <= nickname[i] <= u"\u005A" or \
-                    u"\u0061" <= nickname[i] <= u"\u007A" or \
-                    u"\uAC00" <= nickname[i] <= u"\uD7A3"):
-                raise forms.ValidationError('사용할 수 없는 닉네임입니다.')
+        # for char in nickname:
+        #     if not (u"\u0030" <= char <= u"\u0039" or \
+        #             u"\u0041" <= char <= u"\u005A" or \
+        #             u"\u0061" <= char <= u"\u007A" or \
+        #             u"\uAC00" <= char <= u"\uD7A3"):
+        #         raise forms.ValidationError('사용할 수 없는 닉네임입니다.')
+        #
+        # if not re.match(r'^[a-zA-Z가-힣0-9]*$', nickname):
+        #     raise forms.ValidationError('사용할 수 없는 닉네임입니다.')
+
         return nickname
 
     def clean(self):

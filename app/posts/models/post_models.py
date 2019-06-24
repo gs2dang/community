@@ -13,6 +13,8 @@ class Post(models.Model):
         verbose_name='작성자'
     )
     title = models.CharField('제목', max_length=50)
+    # 기존 코드
+    # view_count = models.CharField('내용')
     content = RichTextUploadingField('내용')
     view_count = models.PositiveIntegerField('조회수', default=0)
     like_count = models.PositiveIntegerField('추천수', default=0)
