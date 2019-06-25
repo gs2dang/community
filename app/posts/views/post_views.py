@@ -23,12 +23,19 @@ def post_list(request):
         elif dropdown == 'title-conten':
             posts = posts.filter(title__icontains=search, content__icontains=search)
 
+        # 검색 결과가 없는 경우
+        if not posts:
+            context = {
+                'search': search
+            }
+            return render(request, 'posts/notfound.html', context)
+
     # 검색 결과가 없을 경우
-    if not posts:
-        context = {
-            'search': search
-        }
-        return render(request, 'posts/notfound.html', context)
+    # if search:
+    #     context = {
+    #         'search': search
+    #     }
+    #     return render(request, 'posts/notfound.html', context)
 
     # Show 15 posts per page
     paginator = Paginator(posts, 15)
@@ -91,7 +98,6 @@ def post_detail(request, pk):
         'before_url': before_url,
         'commentform': CommentForm(),
     }
-
     return render(request, 'posts/post_detail.html', context)
 
 

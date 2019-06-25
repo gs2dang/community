@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'posts',
     'members',
 
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,11 +55,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # REST Framework
     'rest_framework',
     'rest_framework.authtoken',
 
+    # CKEditor
     'ckeditor',
     'ckeditor_uploader',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 
@@ -144,19 +154,6 @@ REST_FRAMEWORK = {
 
 
 # ---------- Django-allauth ---------- #
-INSTALLED_APPS += [
-    'django.contrib.sites',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
-    'allauth.socialaccount.providers.naver',
-    'allauth.socialaccount.providers.facebook',
-]
-
-SITE_ID = 2
-
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -165,9 +162,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 SOCIALACCOUNT_EMAIL_VERIFICATION = True
-SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',

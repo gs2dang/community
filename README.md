@@ -1,6 +1,6 @@
 # 게시판 만들기
 
-배운 내용을 복습하고  대부분의 사이트에는 게시판이 있기에 이걸 만들었습니다.
+배운 내용을 복습하고  대부분의 사이트에는 게시판이 있기에 만들었습니다.
 
 <br>
 
@@ -8,6 +8,24 @@
 
 ```
 pip install -r requirements/base.tx
+```
+
+<br>
+
+## 개발환경
+
+```
+Language: Python 3.7.2
+Front: HTML5/CSS3, Bootstrap 4
+Database: PostgreSQL(AWS RDS), SQLite(Local)
+Web Server: Nginx, AWS S3
+Framework: Django, Django Rest Framework
+Library: django-allauth, django-ckeditor
+Version Control: Git, Github
+Cloud: AWS ECS, Docker
+Documentation: Gitbook
+API: Postman
+ETC: Travis CI
 ```
 
 <br>
@@ -83,4 +101,4 @@ Root 폴더
 - 그 외
   - 조건에 따른 글 검색
   - 페이지네이션
-  - 회원가입 시 이메일 보내기/home/feynman/Pictures
+  - 회원가입 시 이메일 보내기
